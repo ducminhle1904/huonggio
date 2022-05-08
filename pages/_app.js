@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import Layout from "../components/layout";
+import "swiper/css/bundle";
 
 function MyApp({ Component, pageProps }) {
     return (
