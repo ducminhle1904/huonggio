@@ -2,7 +2,8 @@ import React, { useState, Fragment } from "react";
 import Head from "next/head";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { MenuIcon, SearchIcon, ShoppingBagIcon, XIcon } from "@heroicons/react/outline";
-import CartSlideOver from "./CartSlideOver";
+import { useSelector, useDispatch } from "react-redux";
+import { togglePanel } from "../stores/slices/ui";
 
 const navigation = {
     categories: [
@@ -131,11 +132,9 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-export default function Header() {
+export default function Header({ onOpen }) {
     const [open, setOpen] = useState(false);
-    const [isHeadlessOpen, setIsHeadlessOpen] = useState(false);
-    const handleOnClose = () => setIsOpen(false);
-
+    const dispatch = useDispatch();
     return (
         <>
             <Head>
@@ -469,7 +468,7 @@ export default function Header() {
                                     </div>
 
                                     {/* Cart */}
-                                    <div className="ml-4 flow-root lg:ml-6" onClick={() => setIsHeadlessOpen(true)}>
+                                    <div className="ml-4 flow-root lg:ml-6" onClick={onOpen}>
                                         <a href="#" className="group -m-2 p-2 flex items-center">
                                             <ShoppingBagIcon
                                                 className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
@@ -487,7 +486,6 @@ export default function Header() {
                     </nav>
                 </header>
             </div>
-            <CartSlideOver open={isHeadlessOpen} setOpen={setIsHeadlessOpen}></CartSlideOver>
         </>
     );
 }
