@@ -1,9 +1,8 @@
-import React, { useState, Fragment } from "react";
-import Head from "next/head";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { MenuIcon, SearchIcon, ShoppingBagIcon, XIcon } from "@heroicons/react/outline";
-import { useSelector, useDispatch } from "react-redux";
-import { togglePanel } from "../stores/slices/ui";
+import Head from "next/head";
+import React, { Fragment, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const navigation = {
     categories: [

@@ -10,12 +10,10 @@ import "swiper/css/effect-fade";
 
 export default function Banner() {
     return (
-        <div className="h-[50vh] z-10">
+        <div className="h-[70vh] z-10">
             <Swiper
                 spaceBetween={50}
                 slidesPerView={1}
-                onSlideChange={() => console.log("slide change")}
-                onSwiper={(swiper) => console.log(swiper)}
                 navigation
                 modules={[Navigation, Autoplay, EffectFade]}
                 className="h-full"

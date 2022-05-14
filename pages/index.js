@@ -1,10 +1,10 @@
+import { Heading } from "@chakra-ui/react";
 import React from "react";
 import Banner from "../components/Banner";
 import CardSexType from "../components/CardSexType";
-import { Heading } from "@chakra-ui/react";
 import ProductFilter from "../components/Common/ProductFilter";
 
-export default function Home() {
+export default function Home({ data }) {
     return (
         <>
             <Banner />
@@ -14,11 +14,21 @@ export default function Home() {
                 </section>
 
                 {/** Product Overview */}
-                <section className="pt-20 pb-12">
+                <section className="pb-12">
                     <Heading className="pb-4">PRODUCT OVERVIEW</Heading>
-                    <ProductFilter />
+                    <ProductFilter data={data} />
                 </section>
             </div>
         </>
     );
+}
+
+export async function getServerSideProps() {
+    // Fetch data from external API
+    const baseUrl = "https://fakestoreapi.com/";
+    const allProductPath = "/products";
+    const allProductUrl = `${baseUrl}${allProductPath}`;
+
+    const data = await fetch(allProductUrl).then((res) => res.json());
+    return { props: { data } };
 }
