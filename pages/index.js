@@ -26,7 +26,7 @@ export default function Home({ data }) {
 export async function getServerSideProps() {
     // Fetch data from external API
     const baseUrl = "https://fakestoreapi.com/";
-    const allProductPath = "/products";
+    const allProductPath = "/products?limit=8";
     const allProductUrl = `${baseUrl}${allProductPath}`;
 
     const data = await fetch(allProductUrl).then((res) => res.json());

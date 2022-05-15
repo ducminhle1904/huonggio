@@ -1,17 +1,20 @@
 import { Button, useDisclosure } from "@chakra-ui/react";
 import ModalPopup from "./Modal";
 import ProductQuickView from "../ProductQuickView";
+import Image from "next/image";
 
 export default function ProductCard({ product }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <div className="group relative cursor-pointer">
-            <div className="w-full min-h-80 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group group-hover:opacity-75 transition ease-in-out duration-500 lg:h-80 lg:aspect-none relative">
-                <img
+            <div className="w-full aspect-w-1 rounded-md overflow-hidden group group-hover:opacity-75 transition ease-in-out duration-500 lg:aspect-none relative text-center">
+                <Image
                     src={product.image}
                     alt={product.title}
                     className="w-full h-full object-center object-contain lg:w-full lg:h-full"
+                    width={300}
+                    height={300}
                 />
             </div>
 

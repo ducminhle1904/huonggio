@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
 import { StarIcon } from "@heroicons/react/solid";
-import Banner from "./Banner";
+import Image from "next/image";
+import React, { useState } from "react";
 
 const ProductQuickView = ({ data }) => {
     const [color, setColor] = useState("White");
@@ -23,24 +22,8 @@ const ProductQuickView = ({ data }) => {
             <div className="2xl:container 2xl:mx-auto relative flex justify-start w-full item-start flex-col lg:flex-row lg:space-x-8 pb-8 bg-white">
                 <div className="w-full lg:w-1/2">
                     <div className="relative">
-                        <div>
-                            <Banner />
-                        </div>
-                        <div className=" transition duration-150 absolute bottom-0 w-full h-full flex justify-between items-center px-4">
-                            <button
-                                onClick={slideToggle}
-                                aria-label="previous"
-                                className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 rounded-full flex justify-center items-center"
-                            >
-                                <ChevronLeftIcon className="text-gray-500 h-10 w-h-10" />
-                            </button>
-                            <button
-                                onClick={slideToggle}
-                                aria-label="Next"
-                                className=" focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 rounded-full flex justify-center items-center"
-                            >
-                                <ChevronRightIcon className="text-gray-500 h-10 w-h-10" />
-                            </button>
+                        <div className="w-full h-full text-center">
+                            <Image src={data.image} alt={data.title} width={400} height={500} objectFit="contain" />
                         </div>
                     </div>
                 </div>

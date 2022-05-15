@@ -1,9 +1,11 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 import React from "react";
-import ProductList from "./ProductList";
+const ProductList = dynamic(() => import("./ProductList"));
 
 export default function ProductFilter({ data }) {
     const [dataProduct, setDataProduct] = React.useState(data);
+    const [loading, setLoading] = React.useState(false);
     async function changeTab(idx) {
         let url = "https://fakestoreapi.com/products/category/";
         switch (idx) {
@@ -20,13 +22,14 @@ export default function ProductFilter({ data }) {
                 url = url + "jewelery";
                 break;
             default:
-                url = "https://fakestoreapi.com/products";
+                url = "https://fakestoreapi.com/products?limit=8";
                 break;
         }
         await fetch(url)
-            .then((results) => results.json())
+            .then((results) => results.json(), setLoading(true))
             .then((data) => {
                 setDataProduct(data);
+                setLoading(false);
             });
     }
 
@@ -41,19 +44,19 @@ export default function ProductFilter({ data }) {
             </TabList>
             <TabPanels>
                 <TabPanel>
-                    <ProductList products={dataProduct} />
+                    <ProductList products={dataProduct} isLoading={loading} />
                 </TabPanel>
                 <TabPanel>
-                    <ProductList products={dataProduct} />
+                    <ProductList products={dataProduct} isLoading={loading} />
                 </TabPanel>
                 <TabPanel>
-                    <ProductList products={dataProduct} />
+                    <ProductList products={dataProduct} isLoading={loading} />
                 </TabPanel>
                 <TabPanel>
-                    <ProductList products={dataProduct} />
+                    <ProductList products={dataProduct} isLoading={loading} />
                 </TabPanel>
                 <TabPanel>
-                    <ProductList products={dataProduct} />
+                    <ProductList products={dataProduct} isLoading={loading} />
                 </TabPanel>
             </TabPanels>
         </Tabs>
