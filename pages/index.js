@@ -1,12 +1,25 @@
-import { Heading } from "@chakra-ui/react";
+import { Button, Center, Heading } from "@chakra-ui/react";
 import React from "react";
 import Banner from "../components/Banner";
 import CardSexType from "../components/CardSexType";
-import ProductFilter from "../components/Common/ProductFilter";
+import { NextSeo } from "next-seo";
+import dynamic from "next/dynamic";
+import Link from "next/link";
+const ProductFilter = dynamic(() => import("../components/Common/ProductFilter"));
 
 export default function Home({ data }) {
     return (
         <>
+            <NextSeo
+                title="Ken Shopping"
+                description="Cửa hàng Ken chuyên các mặt hàng thời trang như quần áo, giày dép, phụ kiện trang sức, ..."
+                openGraph={{
+                    url: "https://ken-shop.vercel.app/",
+                    title: "Ken Shopping",
+                    description:
+                        "Cửa hàng Ken chuyên các mặt hàng thời trang như quần áo, giày dép, phụ kiện trang sức, ...",
+                }}
+            />
             <Banner />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <section className="pt-20 pb-12">
@@ -17,18 +30,28 @@ export default function Home({ data }) {
                 <section className="pb-12">
                     <Heading className="pb-4">PRODUCT OVERVIEW</Heading>
                     <ProductFilter data={data} />
+                    <Center>
+                        <Link href="/products">
+                            <Button className="mt-4 mx-auto block" variantColor="teal" colorScheme="teal" size="lg">
+                                Load More
+                            </Button>
+                        </Link>
+                    </Center>
                 </section>
             </div>
         </>
     );
 }
 
-export async function getServerSideProps() {
-    // Fetch data from external API
+export const getStaticProps = async () => {
     const baseUrl = "https://fakestoreapi.com/";
     const allProductPath = "/products?limit=8";
     const allProductUrl = `${baseUrl}${allProductPath}`;
-
     const data = await fetch(allProductUrl).then((res) => res.json());
-    return { props: { data } };
-}
+    return {
+        props: {
+            data,
+        },
+        revalidate: 30 * 60, // 30 minutes in seconds
+    };
+};

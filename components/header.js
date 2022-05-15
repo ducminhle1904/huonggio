@@ -1,6 +1,5 @@
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { MenuIcon, SearchIcon, ShoppingBagIcon, XIcon } from "@heroicons/react/outline";
-import Head from "next/head";
 import React, { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -136,14 +135,6 @@ export default function Header({ onOpen }) {
     const dispatch = useDispatch();
     return (
         <>
-            <Head>
-                <title>KEN STORE</title>
-                <meta name="description" content="Cửa hàng KEN, chuyên bán quần áo sỉ và lẻ, giá rẻ nhất Việt Nam" />
-                <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta name="robots" content="noindex, nofollow" />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
             <div className="bg-white sticky top-0 z-50">
                 {/* Mobile menu */}
                 <Transition.Root show={open} as={Fragment}>
