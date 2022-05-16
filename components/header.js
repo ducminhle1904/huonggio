@@ -300,7 +300,7 @@ export default function Header({ onOpen }) {
 
                                 {/* Logo */}
                                 <div className="ml-4 flex lg:ml-0">
-                                    <a href="#">
+                                    <a href="/">
                                         <span className="sr-only">Workflow</span>
                                         <img
                                             className="h-8 w-auto"

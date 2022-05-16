@@ -2,6 +2,7 @@ import { Button, useDisclosure } from "@chakra-ui/react";
 import ModalPopup from "./Modal";
 import ProductQuickView from "../ProductQuickView";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ProductCard({ product }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -37,10 +38,12 @@ export default function ProductCard({ product }) {
             <div className="mt-4 flex flex-col">
                 <div>
                     <h3 className="text-sm text-gray-700">
-                        <a href={product.href}>
-                            <span aria-hidden="true" className="absolute inset-0" />
-                            {product.title}
-                        </a>
+                        <Link href={`product/${product.id}`} passHref>
+                            <a>
+                                <span aria-hidden="true" className="absolute inset-0" />
+                                {product.title}
+                            </a>
+                        </Link>
                     </h3>
                     <p className="mt-1 text-sm font-medium text-gray-500">
                         <span>Category: </span>

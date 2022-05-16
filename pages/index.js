@@ -32,7 +32,7 @@ export default function Home({ data }) {
                     <ProductFilter data={data} />
                     <Center>
                         <Link href="/products">
-                            <Button className="mt-4 mx-auto block" variantColor="teal" colorScheme="teal" size="lg">
+                            <Button className="mt-4 mx-auto block" colorScheme="teal" size="lg">
                                 Load More
                             </Button>
                         </Link>
