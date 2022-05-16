@@ -24,7 +24,7 @@ export default function ProductCard({ product }) {
                 size="md"
                 width={"60%"}
                 bgColor="gray.100"
-                className="opacity-100 bottom-[10%] left-1/2 transform -translate-x-1/2 z-50 lg:opacity-0 group-hover:opacity-100 duration-500"
+                className="opacity-100 bottom-[10%] left-1/2 transform -translate-x-1/2 z-10 lg:opacity-0 group-hover:opacity-100 duration-500"
                 onClick={onOpen}
             >
                 Quick View
@@ -38,7 +38,7 @@ export default function ProductCard({ product }) {
             <div className="mt-4 flex flex-col">
                 <div>
                     <h3 className="text-sm text-gray-700">
-                        <Link href={`product/${product.id}`} passHref>
+                        <Link href={`/product/${product.id}`} passHref>
                             <a>
                                 <span aria-hidden="true" className="absolute inset-0" />
                                 {product.title}
