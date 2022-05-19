@@ -3,7 +3,8 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://ken-shop.vercel.app/
+Host: https://ken-shop.vercel.app
 
 # Sitemaps
 Sitemap: https://ken-shop.vercel.app/sitemap.xml
+Sitemap: https://ken-shop.vercel.app/server-sitemap.xml

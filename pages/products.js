@@ -272,7 +272,7 @@ export default function AllProduct({ data }) {
                                 {/* Filters */}
                                 <form className="hidden lg:block">
                                     <h3 className="sr-only">Categories</h3>
-                                    <CheckboxGroup colorScheme="green" defaultValue={["All"]}>
+                                    <CheckboxGroup colorScheme="green" defaultValue={["All"]} onChange={(value) => console.log(value)}>
                                         <Stack spacing={[1, 5]} direction={["column"]}>
                                             {subCategories.map((category) => (
                                                 <Checkbox value={category.name} key={category.name}>
