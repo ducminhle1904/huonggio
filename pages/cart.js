@@ -1,11 +1,25 @@
+import { Button, Stack } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { PlusIcon, MinusIcon } from "@heroicons/react/outline";
+import Link from "next/link";
+import { NextSeo } from "next-seo";
 
 function Index() {
     const [show, setShow] = useState(false);
     return (
         <>
+            <NextSeo
+                title="Shopping Cart"
+                description="Cửa hàng Ken chuyên các mặt hàng thời trang như quần áo, giày dép, phụ kiện trang sức, ..."
+                openGraph={{
+                    url: "https://ken-shop.vercel.app/",
+                    title: "Ken Shopping",
+                    description:
+                        "Cửa hàng Ken chuyên các mặt hàng thời trang như quần áo, giày dép, phụ kiện trang sức, ...",
+                }}
+            />
             <div>
-                <div className="w-full h-full" id="chec-div">
+                <div className="max-w-7xl mx-auto h-full" id="chec-div">
                     <div
                         className="w-full z-10 right-0 h-full overflow-x-hidden transform translate-x-0 transition ease-in-out duration-700"
                         id="checkout"
@@ -41,7 +55,7 @@ function Index() {
                                     <div className="w-1/4">
                                         <img
                                             src="https://cdn.tuk.dev/assets/templates/e-commerce-kit/bestSeller3.png"
-                                            alt
+                                            alt="true"
                                             className="w-full h-full object-center object-cover"
                                         />
                                     </div>
@@ -51,11 +65,15 @@ function Index() {
                                             <p className="text-base font-black leading-none text-gray-800">
                                                 North wolf bag
                                             </p>
-                                            <select className="py-2 px-1 border border-gray-200 mr-6 focus:outline-none">
-                                                <option>01</option>
-                                                <option>02</option>
-                                                <option>03</option>
-                                            </select>
+                                            <Stack direction="row" spacing={4} alignItems="center">
+                                                <Button colorScheme="red" variant="solid">
+                                                    <MinusIcon width={20} />
+                                                </Button>
+                                                <span>1</span>
+                                                <Button colorScheme="teal" variant="solid">
+                                                    <PlusIcon width={20} />
+                                                </Button>
+                                            </Stack>
                                         </div>
                                         <p className="text-xs leading-3 text-gray-600 pt-2">Height: 10 inches</p>
                                         <p className="text-xs leading-3 text-gray-600 py-4">Color: Black</p>
@@ -63,13 +81,13 @@ function Index() {
                                             Composition: 100% calf leather
                                         </p>
                                         <div className="flex items-center justify-between pt-5 pr-6">
-                                            <div className="flex itemms-center">
-                                                <p className="text-xs leading-3 underline text-gray-800 cursor-pointer">
-                                                    Add to favorites
-                                                </p>
-                                                <p className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer">
+                                            <div className="flex items-center gap-3">
+                                                <Button colorScheme="blue" size="xs">
+                                                    Add to Favorite
+                                                </Button>
+                                                <Button colorScheme="red" size="xs">
                                                     Remove
-                                                </p>
+                                                </Button>
                                             </div>
                                             <p className="text-base font-black leading-none text-gray-800">$9,000</p>
                                         </div>
@@ -79,7 +97,7 @@ function Index() {
                                     <div className="w-1/4">
                                         <img
                                             src="https://cdn.tuk.dev/assets/templates/e-commerce-kit/bestSeller2.png"
-                                            alt
+                                            alt="true"
                                             className="w-full h-full object-center object-cover"
                                         />
                                     </div>
@@ -89,11 +107,15 @@ function Index() {
                                             <p className="text-base font-black leading-none text-gray-800">
                                                 Luxe Signature Ring
                                             </p>
-                                            <select className="py-2 px-1 border border-gray-200 mr-6 focus:outline-none">
-                                                <option>01</option>
-                                                <option>02</option>
-                                                <option>03</option>
-                                            </select>
+                                            <Stack direction="row" spacing={4} alignItems="center">
+                                                <Button colorScheme="red" variant="solid">
+                                                    <MinusIcon width={20} />
+                                                </Button>
+                                                <span>1</span>
+                                                <Button colorScheme="teal" variant="solid">
+                                                    <PlusIcon width={20} />
+                                                </Button>
+                                            </Stack>
                                         </div>
                                         <p className="text-xs leading-3 text-gray-600 pt-2">Height: 10 inches</p>
                                         <p className="text-xs leading-3 text-gray-600 py-4">Color: Black</p>
@@ -101,13 +123,13 @@ function Index() {
                                             Composition: 100% calf leather
                                         </p>
                                         <div className="flex items-center justify-between pt-5 pr-6">
-                                            <div className="flex itemms-center">
-                                                <p className="text-xs leading-3 underline text-gray-800 cursor-pointer">
-                                                    Add to favorites
-                                                </p>
-                                                <p className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer">
+                                            <div className="flex items-center gap-3">
+                                                <Button colorScheme="blue" size="xs">
+                                                    Add to Favorite
+                                                </Button>
+                                                <Button colorScheme="red" size="xs">
                                                     Remove
-                                                </p>
+                                                </Button>
                                             </div>
                                             <p className="text-base font-black leading-none text-gray-800">$9,000</p>
                                         </div>
@@ -117,7 +139,7 @@ function Index() {
                                     <div className="h-full w-1/4">
                                         <img
                                             src="https://cdn.tuk.dev/assets/templates/e-commerce-kit/bestSeller1.png"
-                                            alt
+                                            alt="true"
                                             className="w-full h-full object-center object-cover"
                                         />
                                     </div>
@@ -127,11 +149,15 @@ function Index() {
                                             <p className="text-base font-black leading-none text-gray-800">
                                                 Luxe Signature Shoes
                                             </p>
-                                            <select className="py-2 px-1 border border-gray-200 mr-6 focus:outline-none">
-                                                <option>01</option>
-                                                <option>02</option>
-                                                <option>03</option>
-                                            </select>
+                                            <Stack direction="row" spacing={4} alignItems="center">
+                                                <Button colorScheme="red" variant="solid">
+                                                    <MinusIcon width={20} />
+                                                </Button>
+                                                <span>1</span>
+                                                <Button colorScheme="teal" variant="solid">
+                                                    <PlusIcon width={20} />
+                                                </Button>
+                                            </Stack>
                                         </div>
                                         <p className="text-xs leading-3 text-gray-600 pt-2">Height: 10 inches</p>
                                         <p className="text-xs leading-3 text-gray-600 py-4">Color: Black</p>
@@ -139,13 +165,13 @@ function Index() {
                                             Composition: 100% calf leather
                                         </p>
                                         <div className="flex items-center justify-between pt-5 pr-6">
-                                            <div className="flex itemms-center">
-                                                <p className="text-xs leading-3 underline text-gray-800 cursor-pointer">
-                                                    Add to favorites
-                                                </p>
-                                                <p className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer">
+                                            <div className="flex items-center gap-3">
+                                                <Button colorScheme="blue" size="xs">
+                                                    Add to Favorite
+                                                </Button>
+                                                <Button colorScheme="red" size="xs">
                                                     Remove
-                                                </p>
+                                                </Button>
                                             </div>
                                             <p className="text-base font-black leading-none text-gray-800">$9,000</p>
                                         </div>
@@ -176,12 +202,11 @@ function Index() {
                                                 $10,240
                                             </p>
                                         </div>
-                                        <button
-                                            onClick={() => setShow(!show)}
-                                            className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white"
-                                        >
-                                            Checkout
-                                        </button>
+                                        <Link href="/checkout">
+                                            <button className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">
+                                                Checkout
+                                            </button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
