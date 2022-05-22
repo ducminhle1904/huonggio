@@ -1,13 +1,12 @@
 import { StarIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../stores/slices/cart";
 
 const ProductQuickView = ({ data }) => {
     const [color, setColor] = useState("White");
     const [size, setSize] = useState("");
-    const [slide, setSlide] = useState(true);
-
-    const slideToggle = () => setSlide(!slide);
 
     const getColor = (value) => {
         setColor(value);
@@ -15,6 +14,11 @@ const ProductQuickView = ({ data }) => {
 
     const getSize = (value) => {
         setSize(value);
+    };
+
+    const dispatch = useDispatch();
+    const handleAddToCart = (product) => {
+        dispatch(addToCart(product));
     };
 
     return (
@@ -131,7 +135,10 @@ const ProductQuickView = ({ data }) => {
                     </p>
 
                     <div className="flex flex-col w-full mt-auto gap-2 md:items-center">
-                        <button className="border border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 md:w-96 w-full hover:bg-black text-base font-medium leading-4 bg-gray-800 py-4 text-white">
+                        <button
+                            className="border border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 md:w-96 w-full hover:bg-black text-base font-medium leading-4 bg-gray-800 py-4 text-white"
+                            onClick={() => handleAddToCart(data)}
+                        >
                             Add to Bag
                         </button>
                         <button className="border border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 md:w-96 w-full hover:bg-gray-300 text-base font-medium leading-4 text-gray-800 py-4 bg-white">

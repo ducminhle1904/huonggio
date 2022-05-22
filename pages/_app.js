@@ -7,6 +7,8 @@ import "nprogress/nprogress.css"; //styles of nprogress
 import { store } from "../stores/store";
 import { Provider } from "react-redux";
 import { ChakraProvider } from "@chakra-ui/react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //Binding events.
 Router.events.on("routeChangeStart", () => NProgress.start());
@@ -19,6 +21,16 @@ function MyApp({ Component, pageProps }) {
             <ChakraProvider>
                 <Layout>
                     <Component {...pageProps} />
+                    <ToastContainer
+                        position="top-right"
+                        autoClose={3000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        draggable={false}
+                        pauseOnVisibilityChange={false}
+                        closeOnClick
+                        pauseOnHover={false}
+                    />
                 </Layout>
             </ChakraProvider>
         </Provider>

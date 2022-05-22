@@ -1,7 +1,8 @@
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { MenuIcon, SearchIcon, ShoppingBagIcon, XIcon } from "@heroicons/react/outline";
-import React, { Fragment, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { Fragment, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import Link from "next/link";
 
 const navigation = {
     categories: [
@@ -132,7 +133,8 @@ function classNames(...classes) {
 
 export default function Header({ onOpen }) {
     const [open, setOpen] = useState(false);
-    const dispatch = useDispatch();
+    const cart = useSelector((state) => state.cart);
+
     return (
         <>
             <div className="bg-white sticky top-0 z-50">
@@ -207,16 +209,15 @@ export default function Header({ onOpen }) {
                                                                         className="object-center object-cover"
                                                                     />
                                                                 </div>
-                                                                <a
-                                                                    href={item.href}
-                                                                    className="mt-6 block font-medium text-gray-900"
-                                                                >
-                                                                    <span
-                                                                        className="absolute z-10 inset-0"
-                                                                        aria-hidden="true"
-                                                                    />
-                                                                    {item.name}
-                                                                </a>
+                                                                <Link href={item.href} passHref>
+                                                                    <a className="mt-6 block font-medium text-gray-900">
+                                                                        <span
+                                                                            className="absolute z-10 inset-0"
+                                                                            aria-hidden="true"
+                                                                        />
+                                                                        {item.name}
+                                                                    </a>
+                                                                </Link>
                                                                 <p aria-hidden="true" className="mt-1">
                                                                     Shop now
                                                                 </p>
@@ -238,12 +239,11 @@ export default function Header({ onOpen }) {
                                                             >
                                                                 {section.items.map((item) => (
                                                                     <li key={item.name} className="flow-root">
-                                                                        <a
-                                                                            href={item.href}
-                                                                            className="-m-2 p-2 block text-gray-500"
-                                                                        >
-                                                                            {item.name}
-                                                                        </a>
+                                                                        <Link href={item.href} passHref>
+                                                                            <a className="-m-2 p-2 block text-gray-500">
+                                                                                {item.name}
+                                                                            </a>
+                                                                        </Link>
                                                                     </li>
                                                                 ))}
                                                             </ul>
@@ -257,26 +257,27 @@ export default function Header({ onOpen }) {
                                     <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                                         {navigation.pages.map((page) => (
                                             <div key={page.name} className="flow-root">
-                                                <a
-                                                    href={page.href}
-                                                    className="-m-2 p-2 block font-medium text-gray-900"
-                                                >
-                                                    {page.name}
-                                                </a>
+                                                <Link href={page.href} passHref>
+                                                    <a className="-m-2 p-2 block font-medium text-gray-900">
+                                                        {page.name}
+                                                    </a>
+                                                </Link>
                                             </div>
                                         ))}
                                     </div>
 
                                     <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                                         <div className="flow-root">
-                                            <a href="#" className="-m-2 p-2 block font-medium text-gray-900">
-                                                Sign in
-                                            </a>
+                                            <Link href="#" passHref>
+                                                <a className="-m-2 p-2 block font-medium text-gray-900">Sign in</a>
+                                            </Link>
                                         </div>
                                         <div className="flow-root">
-                                            <a href="#" className="-m-2 p-2 block font-medium text-gray-900">
-                                                Create account
-                                            </a>
+                                            <Link href="#" passHref>
+                                                <a className="-m-2 p-2 block font-medium text-gray-900">
+                                                    Create account
+                                                </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </Dialog.Panel>
@@ -300,14 +301,16 @@ export default function Header({ onOpen }) {
 
                                 {/* Logo */}
                                 <div className="ml-4 flex lg:ml-0">
-                                    <a href="/">
-                                        <span className="sr-only">Workflow</span>
-                                        <img
-                                            className="h-8 w-auto"
-                                            src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
-                                            alt=""
-                                        />
-                                    </a>
+                                    <Link href="/" passHref>
+                                        <a>
+                                            <span className="sr-only">Workflow</span>
+                                            <img
+                                                className="h-8 w-auto"
+                                                src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
+                                                alt=""
+                                            />
+                                        </a>
+                                    </Link>
                                 </div>
 
                                 {/* Flyout menus */}
@@ -362,16 +365,15 @@ export default function Header({ onOpen }) {
                                                                                                 className="object-center object-cover"
                                                                                             />
                                                                                         </div>
-                                                                                        <a
-                                                                                            href={item.href}
-                                                                                            className="mt-6 block font-medium text-gray-900"
-                                                                                        >
-                                                                                            <span
-                                                                                                className="absolute z-10 inset-0"
-                                                                                                aria-hidden="true"
-                                                                                            />
-                                                                                            {item.name}
-                                                                                        </a>
+                                                                                        <Link href={item.href} passHref>
+                                                                                            <a className="mt-6 block font-medium text-gray-900">
+                                                                                                <span
+                                                                                                    className="absolute z-10 inset-0"
+                                                                                                    aria-hidden="true"
+                                                                                                />
+                                                                                                {item.name}
+                                                                                            </a>
+                                                                                        </Link>
                                                                                         <p
                                                                                             aria-hidden="true"
                                                                                             className="mt-1"
@@ -401,14 +403,18 @@ export default function Header({ onOpen }) {
                                                                                                         key={item.name}
                                                                                                         className="flex"
                                                                                                     >
-                                                                                                        <a
+                                                                                                        <Link
                                                                                                             href={
                                                                                                                 item.href
                                                                                                             }
-                                                                                                            className="hover:text-gray-800"
+                                                                                                            passHref
                                                                                                         >
-                                                                                                            {item.name}
-                                                                                                        </a>
+                                                                                                            <a className="hover:text-gray-800">
+                                                                                                                {
+                                                                                                                    item.name
+                                                                                                                }
+                                                                                                            </a>
+                                                                                                        </Link>
                                                                                                     </li>
                                                                                                 )
                                                                                             )}
@@ -427,48 +433,54 @@ export default function Header({ onOpen }) {
                                         ))}
 
                                         {navigation.pages.map((page) => (
-                                            <a
-                                                key={page.name}
-                                                href={page.href}
-                                                className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                                            >
-                                                {page.name}
-                                            </a>
+                                            <Link href={page.href} key={page.name} passHref>
+                                                <a className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">
+                                                    {page.name}
+                                                </a>
+                                            </Link>
                                         ))}
                                     </div>
                                 </Popover.Group>
 
                                 <div className="ml-auto flex items-center">
                                     <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                        <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                            Sign in
-                                        </a>
+                                        <Link href="#" passHref>
+                                            <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                                Sign in
+                                            </a>
+                                        </Link>
                                         <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                                        <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                            Create account
-                                        </a>
+                                        <Link href="#" passHref>
+                                            <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                                                Create account
+                                            </a>
+                                        </Link>
                                     </div>
 
                                     {/* Search */}
                                     <div className="flex lg:ml-6">
-                                        <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
-                                            <span className="sr-only">Search</span>
-                                            <SearchIcon className="w-6 h-6" aria-hidden="true" />
-                                        </a>
+                                        <Link href="#" passHref>
+                                            <a className="p-2 text-gray-400 hover:text-gray-500">
+                                                <span className="sr-only">Search</span>
+                                                <SearchIcon className="w-6 h-6" aria-hidden="true" />
+                                            </a>
+                                        </Link>
                                     </div>
 
                                     {/* Cart */}
                                     <div className="ml-4 flow-root lg:ml-6" onClick={onOpen}>
-                                        <a href="#" className="group -m-2 p-2 flex items-center">
-                                            <ShoppingBagIcon
-                                                className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
-                                                aria-hidden="true"
-                                            />
-                                            <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                                                0
-                                            </span>
-                                            <span className="sr-only">items in cart, view bag</span>
-                                        </a>
+                                        <Link href="#" passHref>
+                                            <a className="group -m-2 p-2 flex items-center">
+                                                <ShoppingBagIcon
+                                                    className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                                                    aria-hidden="true"
+                                                />
+                                                <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                                                    {cart.cart.length}
+                                                </span>
+                                                <span className="sr-only">items in cart, view bag</span>
+                                            </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

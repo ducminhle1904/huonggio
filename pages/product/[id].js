@@ -1,8 +1,11 @@
-import { useState } from "react";
-import { StarIcon } from "@heroicons/react/solid";
 import { RadioGroup } from "@headlessui/react";
+import { StarIcon } from "@heroicons/react/solid";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../stores/slices/cart";
 
 const product = {
     name: "Basic Tee 6-Pack",
@@ -64,6 +67,10 @@ function classNames(...classes) {
 export default function DetailProduct({ productDetail }) {
     const [selectedColor, setSelectedColor] = useState(product.colors[0]);
     const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+    const dispatch = useDispatch();
+    const handleAddToCart = (product) => {
+        dispatch(addToCart(product));
+    };
     return (
         <>
             <NextSeo
@@ -276,13 +283,14 @@ export default function DetailProduct({ productDetail }) {
                                         </div>
                                     </RadioGroup>
                                 </div>
-
-                                <button
-                                    type="submit"
-                                    className="mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                >
-                                    Add to bag
-                                </button>
+                                <Link href={`/cart`}>
+                                    <button
+                                        className="mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                        onClick={() => handleAddToCart(productDetail)}
+                                    >
+                                        Add to bag
+                                    </button>
+                                </Link>
                             </form>
                         </div>
 

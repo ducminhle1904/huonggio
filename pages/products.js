@@ -1,19 +1,23 @@
-import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
+import {
+    Button,
+    Checkbox,
+    CheckboxGroup,
+    IconButton,
+    Menu,
+    MenuButton,
+    MenuItemOption,
+    MenuList,
+    MenuOptionGroup,
+    Stack,
+} from "@chakra-ui/react";
+import { Dialog, Disclosure, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from "@heroicons/react/solid";
-import { Fragment, useState } from "react";
-import { Checkbox, CheckboxGroup, Stack } from "@chakra-ui/react";
-import dynamic from "next/dynamic";
 import { NextSeo } from "next-seo";
+import dynamic from "next/dynamic";
+import { Fragment, useState } from "react";
 
 const ProductList = dynamic(() => import("../components/Common/ProductList"));
-const sortOptions = [
-    { name: "Most Popular", href: "#", current: true },
-    { name: "Best Rating", href: "#", current: false },
-    { name: "Newest", href: "#", current: false },
-    { name: "Price: Low to High", href: "#", current: false },
-    { name: "Price: High to Low", href: "#", current: false },
-];
 const subCategories = [
     { name: "All", href: "#", current: true },
     { name: "Men", href: "#" },
@@ -59,13 +63,56 @@ const filters = [
     },
 ];
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-}
-
 export default function AllProduct({ data }) {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+    const [products, setProducts] = useState(data);
 
+    const sortProduct = (sortBy) => {
+        let sortData = [...products];
+        if (sortBy === "lowtohigh") {
+            sortData.sort((a, b) => {
+                if (a.price < b.price) {
+                    return -1;
+                }
+                if (a.price > b.price) {
+                    return 1;
+                }
+                return 0;
+            });
+        }
+        if (sortBy === "hightolow") {
+            sortData.sort((a, b) => {
+                if (a.price > b.price) {
+                    return -1;
+                }
+                if (a.price < b.price) {
+                    return 1;
+                }
+                return 0;
+            });
+        }
+        if (sortBy === "rating") {
+            sortData.sort((a, b) => {
+                if (a.rating.rate < b.rating.rate) {
+                    return 1;
+                }
+                if (a.rating.rate > b.rating.rate) {
+                    return -1;
+                }
+                return 0;
+            });
+        }
+        sortData.sort((a, b) => {
+            if (a[sortBy] < b[sortBy]) {
+                return -1;
+            }
+            if (a[sortBy] > b[sortBy]) {
+                return 1;
+            }
+            return 0;
+        });
+        setProducts(sortData);
+    };
     return (
         <>
             <NextSeo title="All Products" />
@@ -199,59 +246,37 @@ export default function AllProduct({ data }) {
                         <div className="relative z-10 flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
                             <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">New Arrivals</h1>
 
-                            <div className="flex items-center">
-                                <Menu as="div" className="relative inline-block text-left">
-                                    <div>
-                                        <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                                            Sort
+                            <div className="flex items-center gap-3">
+                                <Menu>
+                                    <MenuButton
+                                        as={Button}
+                                        rightIcon={
                                             <ChevronDownIcon
                                                 className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                                                 aria-hidden="true"
                                             />
-                                        </Menu.Button>
-                                    </div>
-
-                                    <Transition
-                                        as={Fragment}
-                                        enter="transition ease-out duration-100"
-                                        enterFrom="transform opacity-0 scale-95"
-                                        enterTo="transform opacity-100 scale-100"
-                                        leave="transition ease-in duration-75"
-                                        leaveFrom="transform opacity-100 scale-100"
-                                        leaveTo="transform opacity-0 scale-95"
+                                        }
                                     >
-                                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                            <div className="py-1">
-                                                {sortOptions.map((option) => (
-                                                    <Menu.Item key={option.name}>
-                                                        {({ active }) => (
-                                                            <a
-                                                                href={option.href}
-                                                                className={classNames(
-                                                                    option.current
-                                                                        ? "font-medium text-gray-900"
-                                                                        : "text-gray-500",
-                                                                    active ? "bg-gray-100" : "",
-                                                                    "block px-4 py-2 text-sm"
-                                                                )}
-                                                            >
-                                                                {option.name}
-                                                            </a>
-                                                        )}
-                                                    </Menu.Item>
-                                                ))}
-                                            </div>
-                                        </Menu.Items>
-                                    </Transition>
+                                        Sort
+                                    </MenuButton>
+                                    <MenuList>
+                                        <MenuOptionGroup
+                                            onChange={(value) => sortProduct(value)}
+                                            defaultValue="popular"
+                                        >
+                                            <MenuItemOption value="title">Phổ Biến</MenuItemOption>
+                                            <MenuItemOption value="rating">Đánh Giá Cao</MenuItemOption>
+                                            <MenuItemOption value="id">Mới Nhất</MenuItemOption>
+                                            <MenuItemOption value="lowtohigh">Giá: Thấp đến cao</MenuItemOption>
+                                            <MenuItemOption value="hightolow">Giá: Cao đến thấp</MenuItemOption>
+                                        </MenuOptionGroup>
+                                    </MenuList>
                                 </Menu>
 
-                                <button
-                                    type="button"
-                                    className="p-2 -m-2 ml-5 sm:ml-7 text-gray-400 hover:text-gray-500"
-                                >
-                                    <span className="sr-only">View grid</span>
-                                    <ViewGridIcon className="w-5 h-5" aria-hidden="true" />
-                                </button>
+                                <IconButton
+                                    aria-label="Search database"
+                                    icon={<ViewGridIcon className="w-5 h-5" aria-hidden="true" />}
+                                />
                                 <button
                                     type="button"
                                     className="p-2 -m-2 ml-4 sm:ml-6 text-gray-400 hover:text-gray-500 lg:hidden"
@@ -272,7 +297,11 @@ export default function AllProduct({ data }) {
                                 {/* Filters */}
                                 <form className="hidden lg:block">
                                     <h3 className="sr-only">Categories</h3>
-                                    <CheckboxGroup colorScheme="green" defaultValue={["All"]} onChange={(value) => console.log(value)}>
+                                    <CheckboxGroup
+                                        colorScheme="green"
+                                        defaultValue={["All"]}
+                                        onChange={(value) => console.log(value)}
+                                    >
                                         <Stack spacing={[1, 5]} direction={["column"]}>
                                             {subCategories.map((category) => (
                                                 <Checkbox value={category.name} key={category.name}>
@@ -332,7 +361,7 @@ export default function AllProduct({ data }) {
                                 {/* Product grid */}
                                 <div className="lg:col-span-3">
                                     {/* Replace with your content */}
-                                    <ProductList products={data} />
+                                    <ProductList products={products} />
                                     {/* /End replace */}
                                 </div>
                             </div>
