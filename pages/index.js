@@ -1,11 +1,12 @@
 import { Button, Center, Heading } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import Banner from "../components/Banner";
-import CardSexType from "../components/CardSexType";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-const ProductFilter = dynamic(() => import("../components/Common/ProductFilter"));
+const Heros = dynamic(() => import("../components/Heros"));
+const ProductFilter = dynamic(() => import("../components/ProductFilter"));
+const CardSexType = dynamic(() => import("../components/CardSexType"));
 
 export default function Home({ data }) {
     return (
@@ -38,6 +39,10 @@ export default function Home({ data }) {
                         </Link>
                     </Center>
                 </section>
+
+                <section className="pb-12">
+                    <Heros />
+                </section>
             </div>
         </>
     );
@@ -45,13 +50,13 @@ export default function Home({ data }) {
 
 export const getStaticProps = async () => {
     const baseUrl = "https://fakestoreapi.com/";
-    const allProductPath = "/products?limit=8";
+    const allProductPath = "products?limit=8";
     const allProductUrl = `${baseUrl}${allProductPath}`;
     const data = await fetch(allProductUrl).then((res) => res.json());
     return {
         props: {
             data,
         },
-        revalidate: 30 * 60, // 30 minutes in seconds
+        revalidate: 30 * 60,
     };
 };

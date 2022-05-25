@@ -333,7 +333,7 @@ export default function DetailProduct({ productDetail }) {
     );
 }
 
-export async function getServerSideProps({ params: { id } }) {
+export async function getServerSideProps({ params: { id }, req, res }) {
     const baseUrl = "https://fakestoreapi.com/";
     const url = baseUrl + "products/" + id;
     const product = await fetch(url).then((results) => results.json());

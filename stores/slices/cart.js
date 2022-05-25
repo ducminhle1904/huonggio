@@ -1,10 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import toast from "../../components/Common/Toast";
 
-// const isServer = typeof window === "undefined";
-// if (!isServer) {
-//     var cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];
-// }
 const initialState = {
     cart: [],
     cartTotalQuantity: 0,

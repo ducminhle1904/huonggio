@@ -17,7 +17,7 @@ import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import { Fragment, useState } from "react";
 
-const ProductList = dynamic(() => import("../components/Common/ProductList"));
+const ProductList = dynamic(() => import("../components/ProductList"));
 const subCategories = [
     { name: "All", href: "#", current: true },
     { name: "Men", href: "#" },
@@ -375,7 +375,7 @@ export default function AllProduct({ data }) {
 
 export const getStaticProps = async () => {
     const baseUrl = "https://fakestoreapi.com/";
-    const allProductPath = "/products";
+    const allProductPath = "products";
     const allProductUrl = `${baseUrl}${allProductPath}`;
     const data = await fetch(allProductUrl).then((res) => res.json());
     return {

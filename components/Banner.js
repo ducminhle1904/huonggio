@@ -45,14 +45,6 @@ export default function Banner() {
                         priority
                     />
                 </SwiperSlide>
-                <SwiperSlide>
-                    <Image
-                        src="https://images.unsplash.com/photo-1651827383918-8cf74580942a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-                        className="w-full h-full object-cover"
-                        layout="fill"
-                        priority
-                    />
-                </SwiperSlide>
             </Swiper>
         </div>
     );

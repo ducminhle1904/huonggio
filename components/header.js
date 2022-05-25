@@ -268,7 +268,7 @@ export default function Header({ onOpen }) {
 
                                     <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                                         <div className="flow-root">
-                                            <Link href="#" passHref>
+                                            <Link href="/login" passHref>
                                                 <a className="-m-2 p-2 block font-medium text-gray-900">Sign in</a>
                                             </Link>
                                         </div>
@@ -444,7 +444,7 @@ export default function Header({ onOpen }) {
 
                                 <div className="ml-auto flex items-center">
                                     <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                        <Link href="#" passHref>
+                                        <Link href="/login" passHref>
                                             <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
                                                 Sign in
                                             </a>

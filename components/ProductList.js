@@ -1,5 +1,5 @@
 import { Progress } from "@chakra-ui/react";
-import ProductCard from "./ProductCard";
+import ProductCard from "./Common/ProductCard";
 
 export default function ProductList({ products, isLoading }) {
     return (
