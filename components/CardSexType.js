@@ -30,12 +30,11 @@ export default function CardSexType() {
                             </div>
                             <div className="mt-6">
                                 <div className="flex justify-between items-center space-x-2">
-                                    <a
-                                        className="text-base font-medium leading-none hover:underline text-gray-800"
-                                        href="/"
-                                    >
-                                        Khám Phá
-                                    </a>
+                                    <Link href="/" passHref>
+                                        <a className="text-base font-medium leading-none hover:underline text-gray-800">
+                                            Khám Phá
+                                        </a>
+                                    </Link>
                                     <ArrowNarrowRightIcon className="h-5 w-5" />
                                 </div>
                             </div>
@@ -62,12 +61,11 @@ export default function CardSexType() {
                             </div>
                             <div className="mt-6">
                                 <div className="flex justify-between items-center space-x-2">
-                                    <a
-                                        className="text-base font-medium leading-none hover:underline text-gray-800"
-                                        href="/"
-                                    >
-                                        Khám Phá
-                                    </a>
+                                    <Link href="/" passHref>
+                                        <a className="text-base font-medium leading-none hover:underline text-gray-800">
+                                            Khám Phá
+                                        </a>
+                                    </Link>
                                     <ArrowNarrowRightIcon className="h-5 w-5" />
                                 </div>
                             </div>
@@ -87,18 +85,15 @@ export default function CardSexType() {
                                 <p className="text-2xl font-semibold leading-6 text-gray-800">Phụ Kiện</p>
                             </div>
                             <div className="mt-2">
-                                <p className="text-base leading-6 sm:leading-4 text-gray-600">
-                                    Phụ kiện
-                                </p>
+                                <p className="text-base leading-6 sm:leading-4 text-gray-600">Phụ kiện</p>
                             </div>
                             <div className="mt-6">
                                 <div className="flex justify-between items-center space-x-2">
-                                    <a
-                                        className="text-base font-medium leading-none hover:underline text-gray-800"
-                                        href="/"
-                                    >
-                                        Khám Phá
-                                    </a>
+                                    <Link href="/" passHref>
+                                        <a className="text-base font-medium leading-none hover:underline text-gray-800">
+                                            Khám Phá
+                                        </a>
+                                    </Link>
                                     <ArrowNarrowRightIcon className="h-5 w-5" />
                                 </div>
                             </div>
