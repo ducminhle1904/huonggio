@@ -27,6 +27,10 @@ export default function Home({ data }) {
                     <CardSexType />
                 </section>
 
+                <section className="pb-12">
+                    <Heros />
+                </section>
+
                 {/** Product Overview */}
                 <section className="pb-12">
                     <Heading className="pb-4">PRODUCT OVERVIEW</Heading>
@@ -38,10 +42,6 @@ export default function Home({ data }) {
                             </Button>
                         </Link>
                     </Center>
-                </section>
-
-                <section className="pb-12">
-                    <Heros />
                 </section>
             </div>
         </>

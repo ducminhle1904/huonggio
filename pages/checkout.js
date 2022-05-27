@@ -1,9 +1,11 @@
-import Link from "next/link";
-import React, { useState } from "react";
 import { NextSeo } from "next-seo";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getTotals } from "../stores/slices/cart";
+import { FormControl, FormLabel, FormErrorMessage, FormHelperText } from "@chakra-ui/react";
 
-export default function index() {
+export default function Index() {
     const [dropdown1, setDropdown1] = useState(false);
     const [dropdown2, setDropdown2] = useState(false);
     const [dropdown3, setDropdown3] = useState(false);
@@ -15,6 +17,10 @@ export default function index() {
         setChangeText1(e);
         setDropdown1(false);
     };
+
+    useEffect(() => {
+        dispatch(getTotals());
+    }, [cart, dispatch]);
 
     return (
         <>
@@ -162,21 +168,21 @@ export default function index() {
                                             <div className="flex flex-col  w-full">
                                                 <p
                                                     tabIndex={0}
-                                                    onclick="changeButton2('London')"
+                                                    onClick="changeButton2('London')"
                                                     className="focus:outline-none cursor-pointer px-3 hover:text-white hover:bg-gray-800 focus:bg-gray-800 focus:text-white text-left  text-base text-gray-600 py-2 w-full"
                                                 >
                                                     London
                                                 </p>
                                                 <p
                                                     tabIndex={0}
-                                                    onclick="changeButton2('New York')"
+                                                    onClick="changeButton2('New York')"
                                                     className="focus:outline-none cursor-pointer px-3 hover:text-white hover:bg-gray-800 focus:bg-gray-800 focus:text-white text-left  text-base text-gray-600 py-2 w-full"
                                                 >
                                                     New York
                                                 </p>
                                                 <p
                                                     tabIndex={0}
-                                                    onclick="changeButton2('Dubai')"
+                                                    onClick="changeButton2('Dubai')"
                                                     className="focus:outline-none cursor-pointer px-3 hover:text-white hover:bg-gray-800 focus:bg-gray-800 focus:text-white text-left  text-base text-gray-600 py-2 w-full"
                                                 >
                                                     Dubai
@@ -222,21 +228,21 @@ export default function index() {
                                             <div className="flex flex-col  w-full">
                                                 <p
                                                     tabIndex={0}
-                                                    onclick="changeButton3('USA')"
+                                                    onClick="changeButton3('USA')"
                                                     className="focus:outline-none cursor-pointer px-3 hover:text-white hover:bg-gray-800 focus:bg-gray-800 focus:text-white text-left  text-base text-gray-600 py-2 w-full"
                                                 >
                                                     USA
                                                 </p>
                                                 <p
                                                     tabIndex={0}
-                                                    onclick="changeButton3('UK')"
+                                                    onClick="changeButton3('UK')"
                                                     className="focus:outline-none cursor-pointer px-3 hover:text-white hover:bg-gray-800 focus:bg-gray-800 focus:text-white text-left  text-base text-gray-600 py-2 w-full"
                                                 >
                                                     UK
                                                 </p>
                                                 <p
                                                     tabIndex={0}
-                                                    onclick="changeButton3('Russia')"
+                                                    onClick="changeButton3('Russia')"
                                                     className="focus:outline-none cursor-pointer px-3 hover:text-white hover:bg-gray-800 focus:bg-gray-800 focus:text-white text-left  text-base text-gray-600 py-2 w-full"
                                                 >
                                                     Russia
@@ -271,24 +277,24 @@ export default function index() {
                             <div className="flex mt-7 flex-col items-end w-full space-y-6">
                                 <div className="flex justify-between w-full items-center">
                                     <p className="text-lg leading-4 text-gray-600">Total items</p>
-                                    <p className="text-lg font-semibold leading-4 text-gray-600">20</p>
+                                    <p className="text-lg font-semibold leading-4 text-gray-600">{cart.cart.length}</p>
                                 </div>
                                 <div className="flex justify-between w-full items-center">
                                     <p className="text-lg leading-4 text-gray-600">Total Charges</p>
-                                    <p className="text-lg font-semibold leading-4 text-gray-600">$2790</p>
+                                    <p className="text-lg font-semibold leading-4 text-gray-600">
+                                        ${cart.cartTotalAmount}
+                                    </p>
                                 </div>
                                 <div className="flex justify-between w-full items-center">
                                     <p className="text-lg leading-4 text-gray-600">Shipping charges</p>
-                                    <p className="text-lg font-semibold leading-4 text-gray-600">$90</p>
-                                </div>
-                                <div className="flex justify-between w-full items-center">
-                                    <p className="text-lg leading-4 text-gray-600">Sub total </p>
-                                    <p className="text-lg font-semibold leading-4 text-gray-600">$3520</p>
+                                    <p className="text-lg font-semibold leading-4 text-gray-600">$10</p>
                                 </div>
                             </div>
                             <div className="flex justify-between w-full items-center mt-32">
                                 <p className="text-xl font-semibold leading-4 text-gray-800">Estimated Total </p>
-                                <p className="text-lg font-semibold leading-4 text-gray-800">$2900</p>
+                                <p className="text-lg font-semibold leading-4 text-gray-800">
+                                    ${cart.cartTotalAmount + 10}
+                                </p>
                             </div>
                         </div>
                     </div>

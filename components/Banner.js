@@ -23,7 +23,7 @@ export default function Banner() {
             >
                 <SwiperSlide>
                     <Image
-                        src="https://technext.github.io/cozastore/images/slide-03.jpg"
+                        src="https://res.cloudinary.com/kenvo/image/upload/v1653574224/banner/slideshow_4_qglaxq.webp"
                         className="w-full h-full object-cover"
                         layout="fill"
                         priority
@@ -31,7 +31,7 @@ export default function Banner() {
                 </SwiperSlide>
                 <SwiperSlide>
                     <Image
-                        src="https://technext.github.io/cozastore/images/slide-01.jpg"
+                        src="https://res.cloudinary.com/kenvo/image/upload/v1653574220/banner/slideshow_2_o4pnk6.webp"
                         className="w-full h-full object-cover"
                         layout="fill"
                         priority
@@ -39,7 +39,7 @@ export default function Banner() {
                 </SwiperSlide>
                 <SwiperSlide>
                     <Image
-                        src="https://technext.github.io/cozastore/images/slide-02.jpg"
+                        src="https://res.cloudinary.com/kenvo/image/upload/v1653574219/banner/slideshow_3_qclcgv.webp"
                         className="w-full h-full object-cover"
                         layout="fill"
                         priority
