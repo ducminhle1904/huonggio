@@ -11,17 +11,14 @@ export default function CardSexType() {
             <div className="mx-auto container py-12 px-4 md:px-6 2xl:px-0 flex justify-center items-center">
                 <div className="flex flex-col lg:flex-row justify-center items-center lg:space-x-8 space-y-6 lg:space-y-0">
                     <div className="relative">
-                        <img
-                            className="hidden lg:block"
-                            src="https://i.ibb.co/XXKZ7Pt/Group-1785.png"
+                        <Image
+                            className="w-full h-full object-cover"
+                            src="https://res.cloudinary.com/kenvo/image/upload/v1653575537/category/579_47_20211221134222432_gqesez.jpg"
                             alt="table-chair"
+                            width={500}
+                            height={500}
+                            objectFit="cover"
                         />
-                        <img
-                            className="hidden sm:block lg:hidden"
-                            src="https://i.ibb.co/KK7Vn9n/Group-1785-1.png"
-                            alt="table-chair"
-                        />
-                        <img className="sm:hidden" src="https://i.ibb.co/F0T98KC/Group-1785.png" alt="table-chair" />
                         <div className="absolute bottom-4 sm:bottom-10 inset-x-4 sm:inset-x-10 p-6 bg-white flex flex-col justify-start items-start">
                             <div>
                                 <p className="text-2xl font-semibold leading-6 text-gray-800">Dành Cho Nam</p>
@@ -46,20 +43,13 @@ export default function CardSexType() {
                     </div>
 
                     <div className="relative">
-                        <img
-                            className="hidden lg:block"
-                            src="https://i.ibb.co/0qHj658/Group-1786.png"
+                        <Image
+                            className=""
+                            src="https://res.cloudinary.com/kenvo/image/upload/v1653575606/category/product-05_a5mqjk.jpg"
                             alt="chair-wood-fire"
-                        />
-                        <img
-                            className="hidden sm:block lg:hidden"
-                            src="https://i.ibb.co/mGM3xtB/Group-1786-1.png"
-                            alt="chair-wood-fire"
-                        />
-                        <img
-                            className="sm:hidden"
-                            src="https://i.ibb.co/ZVX8rPm/Group-1786.png"
-                            alt="chair-wood-fire"
+                            width={500}
+                            height={500}
+                            objectFit="cover"
                         />
                         <div className="absolute bottom-4 sm:bottom-10 inset-x-4 sm:inset-x-10 p-6 bg-white flex flex-col justify-start items-start">
                             <div>
@@ -84,28 +74,21 @@ export default function CardSexType() {
                         </div>
                     </div>
                     <div className="relative">
-                        <img
-                            className="hidden lg:block"
-                            src="https://i.ibb.co/0qHj658/Group-1786.png"
+                        <Image
+                            className=""
+                            src="https://res.cloudinary.com/kenvo/image/upload/v1653575683/category/img_8056_6b1171ba8df344dd94ba13ea8b0616e6_master_gpwhw1.webp"
                             alt="chair-wood-fire"
-                        />
-                        <img
-                            className="hidden sm:block lg:hidden"
-                            src="https://i.ibb.co/mGM3xtB/Group-1786-1.png"
-                            alt="chair-wood-fire"
-                        />
-                        <img
-                            className="sm:hidden"
-                            src="https://i.ibb.co/ZVX8rPm/Group-1786.png"
-                            alt="chair-wood-fire"
+                            width={500}
+                            height={500}
+                            objectFit="cover"
                         />
                         <div className="absolute bottom-4 sm:bottom-10 inset-x-4 sm:inset-x-10 p-6 bg-white flex flex-col justify-start items-start">
                             <div>
-                                <p className="text-2xl font-semibold leading-6 text-gray-800">Dành Cho Bé</p>
+                                <p className="text-2xl font-semibold leading-6 text-gray-800">Phụ Kiện</p>
                             </div>
                             <div className="mt-2">
                                 <p className="text-base leading-6 sm:leading-4 text-gray-600">
-                                    Quần áo, phụ kiện dành cho trẻ em
+                                    Phụ kiện
                                 </p>
                             </div>
                             <div className="mt-6">
