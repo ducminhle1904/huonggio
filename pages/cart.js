@@ -154,7 +154,7 @@ function Index() {
                                 </select>
                             </div>
                             <div className="py-10">
-                                <label for="promo" className="font-semibold inline-block mb-3 text-sm uppercase">
+                                <label htmlFor="promo" className="font-semibold inline-block mb-3 text-sm uppercase">
                                     Promo Code
                                 </label>
                                 <input

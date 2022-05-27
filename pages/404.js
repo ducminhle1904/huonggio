@@ -10,7 +10,7 @@ export default function Custom404() {
             </div>
             <div className="w-full lg:w-1/2">
                 <h1 className="py-4 text-3xl lg:text-4xl font-extrabold text-gray-800">
-                    Looks like you've found the doorway to the great nothing
+                    Looks like you’ve found the doorway to the great nothing
                 </h1>
                 <p className="py-4 text-base text-gray-800">
                     The content you’re looking for doesn’t exist. Either it was removed, or you mistyped the link.
