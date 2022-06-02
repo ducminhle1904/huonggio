@@ -374,13 +374,13 @@ export default function AllProduct({ data }) {
 }
 
 export const getStaticProps = async () => {
-    const baseUrl = "https://fakestoreapi.com/";
-    const allProductPath = "products";
+    const baseUrl = "https://ken-shop.herokuapp.com/api/v1/";
+    const allProductPath = "product/all";
     const allProductUrl = `${baseUrl}${allProductPath}`;
     const data = await fetch(allProductUrl).then((res) => res.json());
     return {
         props: {
-            data,
+            data: data.product_list,
         },
         revalidate: 30 * 60, // 30 minutes in seconds
     };

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Button, useDisclosure } from "@chakra-ui/react";
 import ModalPopup from "./Modal";
 import ProductQuickView from "../ProductQuickView";
@@ -9,14 +10,8 @@ export default function ProductCard({ product }) {
 
     return (
         <div className="group relative cursor-pointer">
-            <div className="w-full aspect-w-1 rounded-md overflow-hidden group group-hover:opacity-75 transition ease-in-out duration-500 lg:aspect-none relative text-center">
-                <Image
-                    src={product.image}
-                    alt={product.title}
-                    className="w-full h-full object-center object-contain lg:w-full lg:h-full"
-                    width={300}
-                    height={300}
-                />
+            <div className="w-full rounded-md overflow-hidden group group-hover:opacity-75 transition ease-in-out duration-500 relative text-center">
+                <img src={product.image[0]} alt={product.product_name} className="w-full h-full object-contain" />
             </div>
 
             <Button
@@ -35,19 +30,19 @@ export default function ProductCard({ product }) {
                 modalTitle="Product Quick View"
                 childContent={<ProductQuickView data={product} />}
             />
-            <div className="mt-4 flex flex-col">
+            <div className="flex flex-col">
                 <div>
                     <h3 className="text-sm text-gray-700">
-                        <Link href={`/product/${product.id}`} passHref>
+                        <Link href={`/product/${product.product_id}`} passHref>
                             <a>
                                 <span aria-hidden="true" className="absolute inset-0" />
-                                {product.title}
+                                {product.product_name}
                             </a>
                         </Link>
                     </h3>
                     <p className="mt-1 text-sm font-medium text-gray-500">
                         <span>Category: </span>
-                        {product.category}
+                        {/* {product.category} */}
                     </p>
                 </div>
                 <p className="text-sm font-medium text-gray-900">

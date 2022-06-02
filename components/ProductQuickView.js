@@ -27,13 +27,13 @@ const ProductQuickView = ({ data }) => {
                 <div className="w-full lg:w-1/2">
                     <div className="relative">
                         <div className="w-full h-full text-center">
-                            <Image src={data.image} alt={data.title} width={400} height={500} objectFit="contain" />
+                            <Image src={data.image[0]} alt={data.title} width={400} height={500} objectFit="contain" />
                         </div>
                     </div>
                 </div>
                 <div className="mt-6 md:mt-8 lg:mt-0 flex justify-start items-start w-full lg:w-1/2 flex-col">
                     <h2 className=" lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 font-semibold">
-                        {data.title}
+                        {data.product_name}
                     </h2>
                     <div className=" flex justify-start items-center mt-4">
                         <p className="font-normal text-lg leading-6 text-gray-600 mr-4">Price: ${data.price}</p>
