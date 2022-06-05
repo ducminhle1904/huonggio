@@ -29,10 +29,10 @@ export default function CartSlideOver() {
                             <div className="flow-root">
                                 <ul role="list" className="-my-6 divide-y divide-gray-200">
                                     {cart.cart.map((product) => (
-                                        <li key={product.id} className="flex py-6">
+                                        <li key={product.product_id} className="flex py-6">
                                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden">
                                                 <Image
-                                                    src={product.image}
+                                                    src={product.image[0]}
                                                     alt={product.title}
                                                     width={150}
                                                     height={150}
@@ -44,9 +44,14 @@ export default function CartSlideOver() {
                                                 <div>
                                                     <div className="flex justify-between text-base font-medium text-gray-900">
                                                         <h3>
-                                                            <a href={product.href}> {product.title} </a>
+                                                            <a href={product.href}> {product.product_name} </a>
                                                         </h3>
-                                                        <p className="ml-4">${product.price}</p>
+                                                        <p className="ml-4">
+                                                            {product.price.toLocaleString("it-IT", {
+                                                                style: "currency",
+                                                                currency: "VND",
+                                                            })}
+                                                        </p>
                                                     </div>
                                                     {/* <p className="mt-1 text-sm text-gray-500">{product.color}</p> */}
                                                 </div>
@@ -74,7 +79,12 @@ export default function CartSlideOver() {
                     <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                         <div className="flex justify-between text-base font-medium text-gray-900">
                             <p>Subtotal</p>
-                            <p>${cart.cartTotalAmount}</p>
+                            <p>
+                                {cart.cartTotalAmount.toLocaleString("it-IT", {
+                                    style: "currency",
+                                    currency: "VND",
+                                })}
+                            </p>
                         </div>
                         <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                         <div className="mt-6">

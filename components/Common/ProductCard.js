@@ -19,7 +19,7 @@ export default function ProductCard({ product }) {
                 size="md"
                 width={"60%"}
                 bgColor="gray.100"
-                className="opacity-100 bottom-[10%] left-1/2 transform -translate-x-1/2 z-10 lg:opacity-0 group-hover:opacity-100 duration-500"
+                className="opacity-0 bottom-[40%] left-1/2 transform -translate-x-1/2 z-10 lg:opacity-0 lg:group-hover:opacity-100 duration-500"
                 onClick={onOpen}
             >
                 Quick View
@@ -41,13 +41,20 @@ export default function ProductCard({ product }) {
                         </Link>
                     </h3>
                     <p className="mt-1 text-sm font-medium text-gray-500">
-                        <span>Category: </span>
-                        {/* {product.category} */}
+                        <span>Danh mục: </span>
+                        {product.category.map((category) => (
+                            <span key={category.category_id}>
+                                <Link href={`/category/${category.category_id}`} passHref>
+                                    <a>{category.category_name}</a>
+                                </Link>
+                                <span>&nbsp;</span>
+                            </span>
+                        ))}
                     </p>
                 </div>
                 <p className="text-sm font-medium text-gray-900">
-                    <span>Price: </span>
-                    {product.price}
+                    <span>Giá: </span>
+                    {product.price.toLocaleString("it-IT", { style: "currency", currency: "VND" })}
                 </p>
             </div>
         </div>

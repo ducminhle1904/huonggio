@@ -382,6 +382,7 @@ export const getStaticProps = async () => {
         props: {
             data: data.product_list,
         },
-        revalidate: 30 * 60, // 30 minutes in seconds
+        // revalidate in 15 minutes
+        revalidate: 15 * 60,
     };
 };
