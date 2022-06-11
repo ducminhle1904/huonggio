@@ -26,10 +26,9 @@ export default function ProductFilter({ data }) {
                 break;
         }
         await fetch(url)
-            .then((results) => results.json(), setLoading(true))
+            .then((results) => results.json())
             .then((data) => {
                 setDataProduct(data);
-                setLoading(false);
             });
     }
 
@@ -44,19 +43,19 @@ export default function ProductFilter({ data }) {
             </TabList>
             <TabPanels>
                 <TabPanel>
-                    <ProductList products={dataProduct} isLoading={loading} />
+                    <ProductList products={dataProduct} />
                 </TabPanel>
                 <TabPanel>
-                    <ProductList products={dataProduct} isLoading={loading} />
+                    <ProductList products={dataProduct} />
                 </TabPanel>
                 <TabPanel>
-                    <ProductList products={dataProduct} isLoading={loading} />
+                    <ProductList products={dataProduct} />
                 </TabPanel>
                 <TabPanel>
-                    <ProductList products={dataProduct} isLoading={loading} />
+                    <ProductList products={dataProduct} />
                 </TabPanel>
                 <TabPanel>
-                    <ProductList products={dataProduct} isLoading={loading} />
+                    <ProductList products={dataProduct} />
                 </TabPanel>
             </TabPanels>
         </Tabs>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../stores/slices/cart";
+import { generateCurrency } from "../helpers";
 
 const ProductQuickView = ({ data }) => {
     const [color, setColor] = useState("White");
@@ -36,7 +37,9 @@ const ProductQuickView = ({ data }) => {
                         {data.product_name}
                     </h2>
                     <div className=" flex justify-start items-center mt-4">
-                        <p className="font-normal text-lg leading-6 text-gray-600 mr-4">Price: ${data.price}</p>
+                        <p className="font-normal text-lg leading-6 text-gray-600 mr-4">
+                            Price: {generateCurrency(data.price)}
+                        </p>
                         <div className="cursor-pointer flex space-x-2 mr-3">
                             <StarIcon className="text-gray-500 h-6 w-6" />
                             <StarIcon className="text-gray-500 h-6 w-6" />

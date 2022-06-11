@@ -4,6 +4,7 @@ import ModalPopup from "./Modal";
 import ProductQuickView from "../ProductQuickView";
 import Image from "next/image";
 import Link from "next/link";
+import { generateCurrency } from "../../helpers";
 
 export default function ProductCard({ product }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -54,7 +55,7 @@ export default function ProductCard({ product }) {
                 </div>
                 <p className="text-sm font-medium text-gray-900">
                     <span>Giá: </span>
-                    {product.price.toLocaleString("it-IT", { style: "currency", currency: "VND" })}
+                    {generateCurrency(product.price)}
                 </p>
             </div>
         </div>

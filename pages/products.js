@@ -16,6 +16,9 @@ import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } fr
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import { Fragment, useState } from "react";
+import { ApiHelper } from "../helpers";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../stores/slices/loading";
 
 const ProductList = dynamic(() => import("../components/ProductList"));
 const subCategories = [
@@ -66,52 +69,32 @@ const filters = [
 export default function AllProduct({ data }) {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [products, setProducts] = useState(data);
+    const dispatch = useDispatch();
 
-    const sortProduct = (sortBy) => {
-        let sortData = [...products];
+    const sortProduct = async (sortBy) => {
+        let url = "";
+        let data = [];
         if (sortBy === "lowtohigh") {
-            sortData.sort((a, b) => {
-                if (a.price < b.price) {
-                    return -1;
-                }
-                if (a.price > b.price) {
-                    return 1;
-                }
-                return 0;
-            });
+            dispatch(setLoading(true));
+            url = "product/all?page=0&unPaged=false&size=100&sort=price,asc";
+            data = await ApiHelper(url).then((response) => response);
+            dispatch(setLoading(false));
+            setProducts(data.product_list);
         }
         if (sortBy === "hightolow") {
-            sortData.sort((a, b) => {
-                if (a.price > b.price) {
-                    return -1;
-                }
-                if (a.price < b.price) {
-                    return 1;
-                }
-                return 0;
-            });
+            dispatch(setLoading(true));
+            url = "product/all?page=0&unPaged=false&size=100&sort=price,desc";
+            data = await ApiHelper(url).then((response) => response);
+            dispatch(setLoading(false));
+            setProducts(data.product_list);
         }
-        if (sortBy === "rating") {
-            sortData.sort((a, b) => {
-                if (a.rating.rate < b.rating.rate) {
-                    return 1;
-                }
-                if (a.rating.rate > b.rating.rate) {
-                    return -1;
-                }
-                return 0;
-            });
+        if (sortBy === "created") {
+            dispatch(setLoading(true));
+            url = "product/all?page=0&unPaged=false&size=100&sort=created_at,desc";
+            data = await ApiHelper(url).then((response) => response);
+            dispatch(setLoading(false));
+            setProducts(data.product_list);
         }
-        sortData.sort((a, b) => {
-            if (a[sortBy] < b[sortBy]) {
-                return -1;
-            }
-            if (a[sortBy] > b[sortBy]) {
-                return 1;
-            }
-            return 0;
-        });
-        setProducts(sortData);
     };
     return (
         <>
@@ -266,7 +249,7 @@ export default function AllProduct({ data }) {
                                         >
                                             <MenuItemOption value="title">Phổ Biến</MenuItemOption>
                                             <MenuItemOption value="rating">Đánh Giá Cao</MenuItemOption>
-                                            <MenuItemOption value="id">Mới Nhất</MenuItemOption>
+                                            <MenuItemOption value="created">Mới Nhất</MenuItemOption>
                                             <MenuItemOption value="lowtohigh">Giá: Thấp đến cao</MenuItemOption>
                                             <MenuItemOption value="hightolow">Giá: Cao đến thấp</MenuItemOption>
                                         </MenuOptionGroup>
@@ -374,10 +357,8 @@ export default function AllProduct({ data }) {
 }
 
 export const getStaticProps = async () => {
-    const baseUrl = "https://ken-shop.herokuapp.com/api/v1/";
     const allProductPath = "product/all";
-    const allProductUrl = `${baseUrl}${allProductPath}`;
-    const data = await fetch(allProductUrl).then((res) => res.json());
+    const data = await ApiHelper(allProductPath).then((res) => res);
     return {
         props: {
             data: data.product_list,

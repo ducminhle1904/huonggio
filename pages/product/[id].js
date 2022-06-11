@@ -6,6 +6,7 @@ import ReactHtmlParser from "react-html-parser";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import { useDispatch } from "react-redux";
+import { generateCurrency } from "../../helpers";
 import { addToCart } from "../../stores/slices/cart";
 
 export default function DetailProduct({ productDetail }) {
@@ -16,6 +17,10 @@ export default function DetailProduct({ productDetail }) {
     };
     const [isOpen, setIsOpen] = useState(false);
     const [photoIndex, setPhotoIndex] = useState(0);
+    const handleLightbox = (index) => {
+        setIsOpen(true);
+        setPhotoIndex(index);
+    };
     return (
         <>
             <NextSeo
@@ -46,7 +51,7 @@ export default function DetailProduct({ productDetail }) {
                 <div className="relative max-w-screen-xl px-4 py-8 mx-auto">
                     <div className="grid items-start grid-cols-1 gap-8 md:grid-cols-2">
                         <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
-                            <div className="aspect-w-1 aspect-h-1" onClick={() => setIsOpen(true)}>
+                            <div className="aspect-w-1 aspect-h-1" onClick={() => handleLightbox(0)}>
                                 <img
                                     alt="Mobile Phone Stand"
                                     className="object-cover rounded-xl"
@@ -54,11 +59,15 @@ export default function DetailProduct({ productDetail }) {
                                 />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4 lg:mt-4" onClick={() => setIsOpen(true)}>
+                            <div className="grid grid-cols-2 gap-4 lg:mt-4">
                                 {productDetail.image
                                     .filter((_, index) => index > 0)
                                     .map((image, index) => (
-                                        <div className="aspect-w-1 aspect-h-1" key={index}>
+                                        <div
+                                            className="aspect-w-1 aspect-h-1"
+                                            key={index}
+                                            onClick={() => handleLightbox(index + 1)}
+                                        >
                                             <img
                                                 alt="Mobile Phone Stand"
                                                 className="object-cover rounded-xl"
@@ -90,14 +99,14 @@ export default function DetailProduct({ productDetail }) {
                                     </div>
                                 </div>
 
-                                <p className="text-lg font-bold">${productDetail.price}</p>
+                                <p className="text-lg font-bold">{generateCurrency(productDetail.price)}</p>
                             </div>
 
                             <details className="relative mt-4 group">
                                 <summary className="block">
                                     <div>
                                         <div className="max-w-none">
-                                            <p>{ReactHtmlParser(productDetail.product_description)}</p>
+                                            <span>{ReactHtmlParser(productDetail.product_description)}</span>
                                         </div>
                                     </div>
                                 </summary>
@@ -106,18 +115,12 @@ export default function DetailProduct({ productDetail }) {
                             <form className="mt-8">
                                 <fieldset>
                                     <legend className="mb-1 text-sm font-medium">Color</legend>
-
                                     <div className="flow-root">
                                         <div className="flex flex-wrap -m-0.5">
                                             {productDetail.color.map((c) => {
                                                 return (
-                                                    <label htmlFor={{ c }} className="cursor-pointer p-0.5" key={c}>
-                                                        <input
-                                                            type="radio"
-                                                            name={{ c }}
-                                                            id={{ c }}
-                                                            className="sr-only peer"
-                                                        />
+                                                    <label htmlFor={c} className="cursor-pointer p-0.5" key={c}>
+                                                        <input type="radio" name={c} id={c} className="sr-only peer" />
                                                         <span className="inline-block px-3 py-1 text-xs font-medium border rounded-full group peer-checked:bg-black peer-checked:text-white">
                                                             {c}
                                                         </span>

@@ -7,6 +7,7 @@ import Image from "next/image";
 import { decreaseQuantity, increaseQuantity, removeItem, getTotals } from "../stores/slices/cart";
 import { PlusSmIcon, MinusSmIcon } from "@heroicons/react/outline";
 import { IconButton } from "@chakra-ui/react";
+import { generateCurrency } from "../helpers";
 
 function Index() {
     const dispatch = useDispatch();
@@ -125,12 +126,11 @@ function Index() {
                                                 onClick={() => increaseAmount(item)}
                                             />
                                         </div>
-                                        <span className="text-center w-1/5 font-semibold text-sm">${item.price}</span>
                                         <span className="text-center w-1/5 font-semibold text-sm">
-                                            {(item.quantity * item.price).toLocaleString("it-IT", {
-                                                style: "currency",
-                                                currency: "VND",
-                                            })}
+                                            {generateCurrency(item.price)}
+                                        </span>
+                                        <span className="text-center w-1/5 font-semibold text-sm">
+                                            {generateCurrency(item.quantity * item.price)}
                                         </span>
                                     </div>
                                 ))}
@@ -152,12 +152,7 @@ function Index() {
                             <h1 className="font-semibold text-2xl border-b pb-8">Order Summary</h1>
                             <div className="flex justify-between mt-10 mb-5">
                                 <span className="font-semibold text-sm uppercase">Items {cart.cart.length}</span>
-                                <span className="font-semibold text-sm">
-                                    {cart.cartTotalAmount.toLocaleString("it-IT", {
-                                        style: "currency",
-                                        currency: "VND",
-                                    })}
-                                </span>
+                                <span className="font-semibold text-sm">{generateCurrency(cart.cartTotalAmount)}</span>
                             </div>
                             <div>
                                 <label className="font-medium inline-block mb-3 text-sm uppercase">Shipping</label>
@@ -182,12 +177,7 @@ function Index() {
                             <div className="border-t mt-8">
                                 <div className="flex font-semibold justify-between py-6 text-sm uppercase">
                                     <span>Total cost</span>
-                                    <span>
-                                        {(cart.cartTotalAmount + 10000).toLocaleString("it-IT", {
-                                            style: "currency",
-                                            currency: "VND",
-                                        })}
-                                    </span>
+                                    <span>{generateCurrency(cart.cartTotalAmount + 10000)}</span>
                                 </div>
                                 <Link href="/checkout">
                                     <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
