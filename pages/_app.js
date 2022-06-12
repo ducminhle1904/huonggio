@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { ChakraProvider } from "@chakra-ui/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ScrollToTop from "react-scroll-to-top";
 
 //Binding events.
 Router.events.on("routeChangeStart", () => NProgress.start());
@@ -21,6 +22,7 @@ function MyApp({ Component, pageProps }) {
             <ChakraProvider>
                 <Layout>
                     <Component {...pageProps} />
+                    <ScrollToTop smooth color="#6f00ff" width="40px" />
                     <ToastContainer
                         position="top-right"
                         autoClose={3000}

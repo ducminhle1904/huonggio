@@ -1,45 +1,46 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { useEffect } from "react";
+import { ApiHelper } from "../helpers";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../stores/slices/loading";
 const ProductList = dynamic(() => import("./ProductList"));
 
 export default function ProductFilter({ data }) {
     const [dataProduct, setDataProduct] = React.useState(data);
-    const [loading, setLoading] = React.useState(false);
-    async function changeTab(idx) {
-        let url = "https://fakestoreapi.com/products/category/";
-        switch (idx) {
-            case 1:
-                url = url + "women's clothing";
-                break;
-            case 2:
-                url = url + "men's clothing";
-                break;
-            case 3:
-                url = url + "electronics";
-                break;
-            case 4:
-                url = url + "jewelery";
-                break;
-            default:
-                url = "https://fakestoreapi.com/products?limit=8";
-                break;
-        }
-        await fetch(url)
-            .then((results) => results.json())
-            .then((data) => {
-                setDataProduct(data);
+    const [category, setCategory] = React.useState([]);
+    const [categoryId, setCategoryId] = React.useState("");
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        async function fetchCategory() {
+            await ApiHelper("category/all").then((res) => {
+                setCategory(res.all_category);
             });
+        }
+        fetchCategory();
+    }, []);
+
+    async function changeTab(id) {
+        dispatch(setLoading(true));
+        let url = id
+            ? "product/all?page=0&unPaged=false&size=8&sort=price,desc&category="
+            : "product/all?page=0&unPaged=false&size=8&sort=price,desc";
+        await ApiHelper(url + id).then((results) => {
+            setDataProduct(results.product_list);
+            dispatch(setLoading(false));
+        });
     }
 
     return (
-        <Tabs variant="soft-rounded" colorScheme="green" isLazy onChange={(index) => changeTab(index)}>
+        <Tabs variant="soft-rounded" colorScheme="green" isLazy>
             <TabList className="flex-wrap">
-                <Tab>All Products</Tab>
-                <Tab>Women</Tab>
-                <Tab>Men</Tab>
-                <Tab>Electronics</Tab>
-                <Tab>Jewelery</Tab>
+                <Tab onClick={() => changeTab(null)}>Tất cả sản phẩm</Tab>
+                {category.map((item, index) => (
+                    <Tab key={index} onClick={() => changeTab(item.category_id)}>
+                        {item.category_name}
+                    </Tab>
+                ))}
             </TabList>
             <TabPanels>
                 <TabPanel>

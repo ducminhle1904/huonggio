@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { StarIcon } from "@heroicons/react/solid";
 import { NextSeo } from "next-seo";
 import { useState } from "react";
 import ReactHtmlParser from "react-html-parser";
@@ -8,6 +7,8 @@ import "react-image-lightbox/style.css";
 import { useDispatch } from "react-redux";
 import { generateCurrency } from "../../helpers";
 import { addToCart } from "../../stores/slices/cart";
+import Rating from "react-rating";
+import { BsStar, BsStarFill } from "react-icons/bs";
 
 export default function DetailProduct({ productDetail }) {
     const dispatch = useDispatch();
@@ -84,22 +85,22 @@ export default function DetailProduct({ productDetail }) {
                                 Pre Order{" "}
                             </strong>
 
-                            <div className="flex justify-between mt-8">
-                                <div className="max-w-[35ch]">
+                            <div className="mt-4">
+                                <div className="w-full">
                                     <h1 className="text-2xl font-bold">{productDetail.product_name}</h1>
+                                    <p className="text-lg font-bold">Giá: {generateCurrency(productDetail.price)}</p>
 
                                     <p className="mt-0.5 text-sm">Highest Rated Product</p>
 
                                     <div className="flex mt-2 -ml-0.5">
-                                        <StarIcon className="h-5 w-5 flex-shrink-0" />
-                                        <StarIcon className="h-5 w-5 flex-shrink-0" />
-                                        <StarIcon className="h-5 w-5 flex-shrink-0" />
-                                        <StarIcon className="h-5 w-5 flex-shrink-0" />
-                                        <StarIcon className="h-5 w-5 flex-shrink-0" />
+                                        <Rating
+                                            initialRating={productDetail.rating}
+                                            emptySymbol={<BsStar fill="#FDCC0D" />}
+                                            fullSymbol={<BsStarFill fill="#FDCC0D" />}
+                                            readonly
+                                        />
                                     </div>
                                 </div>
-
-                                <p className="text-lg font-bold">{generateCurrency(productDetail.price)}</p>
                             </div>
 
                             <details className="relative mt-4 group">

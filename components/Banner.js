@@ -11,7 +11,7 @@ import "swiper/css/effect-fade";
 
 export default function Banner() {
     return (
-        <div className="h-[70vh] z-10">
+        <div className="h-[75vh] z-10">
             <Swiper
                 spaceBetween={50}
                 slidesPerView={1}
@@ -27,6 +27,7 @@ export default function Banner() {
                         className="w-full h-full object-cover"
                         layout="fill"
                         priority
+                        alt="banner"
                     />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -35,6 +36,7 @@ export default function Banner() {
                         className="w-full h-full object-cover"
                         layout="fill"
                         priority
+                        alt="banner"
                     />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -43,6 +45,7 @@ export default function Banner() {
                         className="w-full h-full object-cover"
                         layout="fill"
                         priority
+                        alt="banner"
                     />
                 </SwiperSlide>
             </Swiper>

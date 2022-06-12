@@ -4,10 +4,13 @@ import Banner from "../components/Banner";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { ApiHelper } from "../helpers";
 
 const Heros = dynamic(() => import("../components/Heros"));
 const ProductFilter = dynamic(() => import("../components/ProductFilter"));
 const CardSexType = dynamic(() => import("../components/CardSexType"));
+const Highlights = dynamic(() => import("../components/Highlights"));
+const Partners = dynamic(() => import("../components/Partners"));
 
 export default function Home({ data }) {
     return (
@@ -23,6 +26,7 @@ export default function Home({ data }) {
                 }}
             />
             <Banner />
+            <Highlights />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <section className="pt-20 pb-12">
                     <CardSexType />
@@ -34,7 +38,7 @@ export default function Home({ data }) {
 
                 {/** Product Overview */}
                 <section className="pb-12">
-                    <Heading className="pb-4">PRODUCT OVERVIEW</Heading>
+                    <Heading className="pb-4">SẢN PHẨM BÁN CHẠY</Heading>
                     <ProductFilter data={data} />
                     <Center>
                         <Link href="/products">
@@ -45,15 +49,14 @@ export default function Home({ data }) {
                     </Center>
                 </section>
             </div>
+            <Partners />
         </>
     );
 }
 
 export const getStaticProps = async () => {
-    const baseUrl = "http://ken-shop.herokuapp.com/api/v1/";
     const allProductPath = "product/all?page=0&size=8";
-    const allProductUrl = `${baseUrl}${allProductPath}`;
-    const data = await fetch(allProductUrl).then((res) => res.json());
+    const data = await ApiHelper(allProductPath).then((res) => res);
     return {
         props: {
             data: data.product_list,

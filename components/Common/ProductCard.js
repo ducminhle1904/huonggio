@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { Button, useDisclosure } from "@chakra-ui/react";
-import ModalPopup from "./Modal";
-import ProductQuickView from "../ProductQuickView";
-import Image from "next/image";
 import Link from "next/link";
 import { generateCurrency } from "../../helpers";
+import ProductQuickView from "../ProductQuickView";
+import ModalPopup from "./Modal";
+import Rating from "react-rating";
+import { BsStar, BsStarFill } from "react-icons/bs";
 
 export default function ProductCard({ product }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,6 +42,12 @@ export default function ProductCard({ product }) {
                             </a>
                         </Link>
                     </h3>
+                    <Rating
+                        initialRating={product.rating}
+                        emptySymbol={<BsStar fill="#FDCC0D" />}
+                        fullSymbol={<BsStarFill fill="#FDCC0D" />}
+                        readonly
+                    />
                     <p className="mt-1 text-sm font-medium text-gray-500">
                         <span>Danh mục: </span>
                         {product.category.map((category) => (

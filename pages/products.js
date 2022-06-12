@@ -16,8 +16,8 @@ import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } fr
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import { Fragment, useState } from "react";
+import { useDispatch } from "react-redux";
 import { ApiHelper } from "../helpers";
-import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../stores/slices/loading";
 
 const ProductList = dynamic(() => import("../components/ProductList"));
@@ -74,27 +74,29 @@ export default function AllProduct({ data }) {
     const sortProduct = async (sortBy) => {
         let url = "";
         let data = [];
+        dispatch(setLoading(true));
         if (sortBy === "lowtohigh") {
-            dispatch(setLoading(true));
             url = "product/all?page=0&unPaged=false&size=100&sort=price,asc";
             data = await ApiHelper(url).then((response) => response);
-            dispatch(setLoading(false));
-            setProducts(data.product_list);
         }
         if (sortBy === "hightolow") {
-            dispatch(setLoading(true));
             url = "product/all?page=0&unPaged=false&size=100&sort=price,desc";
             data = await ApiHelper(url).then((response) => response);
-            dispatch(setLoading(false));
-            setProducts(data.product_list);
         }
         if (sortBy === "created") {
-            dispatch(setLoading(true));
             url = "product/all?page=0&unPaged=false&size=100&sort=created_at,desc";
             data = await ApiHelper(url).then((response) => response);
-            dispatch(setLoading(false));
-            setProducts(data.product_list);
         }
+        if (sortBy === "rating") {
+            url = "product/all?page=0&unPaged=false&size=100&sort=product_review_point,desc";
+            data = await ApiHelper(url).then((response) => response);
+        }
+        if (sortBy === "sold_quantity") {
+            url = "product/all?page=0&unPaged=false&size=100&sort=sold_quantity,desc";
+            data = await ApiHelper(url).then((response) => response);
+        }
+        dispatch(setLoading(false));
+        setProducts(data.product_list);
     };
     return (
         <>
@@ -247,7 +249,7 @@ export default function AllProduct({ data }) {
                                             onChange={(value) => sortProduct(value)}
                                             defaultValue="popular"
                                         >
-                                            <MenuItemOption value="title">Phổ Biến</MenuItemOption>
+                                            <MenuItemOption value="sold_quantity">Phổ Biến</MenuItemOption>
                                             <MenuItemOption value="rating">Đánh Giá Cao</MenuItemOption>
                                             <MenuItemOption value="created">Mới Nhất</MenuItemOption>
                                             <MenuItemOption value="lowtohigh">Giá: Thấp đến cao</MenuItemOption>
