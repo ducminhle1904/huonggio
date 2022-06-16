@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { ApiHelper } from "../helpers";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../stores/slices/loading";
-const ProductList = dynamic(() => import("./ProductList"));
+const ProductGrid = dynamic(() => import("./ProductGrid"));
 
 export default function ProductFilter({ data }) {
     const [dataProduct, setDataProduct] = React.useState(data);
@@ -44,19 +44,19 @@ export default function ProductFilter({ data }) {
             </TabList>
             <TabPanels>
                 <TabPanel>
-                    <ProductList products={dataProduct} />
+                    <ProductGrid products={dataProduct} />
                 </TabPanel>
                 <TabPanel>
-                    <ProductList products={dataProduct} />
+                    <ProductGrid products={dataProduct} />
                 </TabPanel>
                 <TabPanel>
-                    <ProductList products={dataProduct} />
+                    <ProductGrid products={dataProduct} />
                 </TabPanel>
                 <TabPanel>
-                    <ProductList products={dataProduct} />
+                    <ProductGrid products={dataProduct} />
                 </TabPanel>
                 <TabPanel>
-                    <ProductList products={dataProduct} />
+                    <ProductGrid products={dataProduct} />
                 </TabPanel>
             </TabPanels>
         </Tabs>

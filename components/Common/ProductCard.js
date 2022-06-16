@@ -2,10 +2,12 @@
 import { Button, useDisclosure } from "@chakra-ui/react";
 import Link from "next/link";
 import { generateCurrency } from "../../helpers";
-import ProductQuickView from "../ProductQuickView";
-import ModalPopup from "./Modal";
 import Rating from "react-rating";
 import { BsStar, BsStarFill } from "react-icons/bs";
+import dynamic from "next/dynamic";
+
+const ModalPopup = dynamic(() => import("./Modal"));
+const ProductQuickView = dynamic(() => import("../ProductQuickView"));
 
 export default function ProductCard({ product }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -13,7 +15,7 @@ export default function ProductCard({ product }) {
     return (
         <div className="group relative cursor-pointer">
             <div className="w-full rounded-md overflow-hidden group group-hover:opacity-75 transition ease-in-out duration-500 relative text-center">
-                <img src={product.image[0]} alt={product.product_name} className="w-full h-full object-contain" />
+                <img src={product?.image[0]} alt={product.product_name} className="w-full h-full object-contain" />
             </div>
 
             <Button

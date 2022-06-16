@@ -22,6 +22,15 @@ export default function DetailProduct({ productDetail }) {
         setIsOpen(true);
         setPhotoIndex(index);
     };
+    const [size, setSize] = useState("");
+    const [color, setColor] = useState("");
+    const getSize = (value) => {
+        setSize(value);
+    };
+    const getColor = (value) => {
+        setColor(value);
+    };
+
     return (
         <>
             <NextSeo
@@ -80,9 +89,14 @@ export default function DetailProduct({ productDetail }) {
                         </div>
 
                         <div className="sticky top-[80px]">
-                            <strong className="border border-blue-600 rounded-full tracking-wide px-3 font-medium py-0.5 text-xs bg-gray-100 text-blue-600">
-                                {" "}
-                                Pre Order{" "}
+                            <strong
+                                className={`border ${
+                                    productDetail.quantity ? `border-green-600` : `border-red-600`
+                                } rounded-full tracking-wide px-3 font-medium py-0.5 text-xs bg-gray-100 ${
+                                    productDetail.quantity ? `text-green-600` : `text-red-600`
+                                }`}
+                            >
+                                {productDetail.quantity > 0 ? "Còn hàng" : "Hết hàng"}
                             </strong>
 
                             <div className="mt-4">
@@ -117,15 +131,22 @@ export default function DetailProduct({ productDetail }) {
                                 <fieldset>
                                     <legend className="mb-1 text-sm font-medium">Color</legend>
                                     <div className="flow-root">
-                                        <div className="flex flex-wrap -m-0.5">
-                                            {productDetail.color.map((c) => {
+                                        <div className="flex flex-wrap -m-0.5 gap-3">
+                                            {productDetail.color.map((item, index) => {
                                                 return (
-                                                    <label htmlFor={c} className="cursor-pointer p-0.5" key={c}>
-                                                        <input type="radio" name={c} id={c} className="sr-only peer" />
-                                                        <span className="inline-block px-3 py-1 text-xs font-medium border rounded-full group peer-checked:bg-black peer-checked:text-white">
-                                                            {c}
-                                                        </span>
-                                                    </label>
+                                                    <div
+                                                        key={index}
+                                                        onClick={() => getColor(item)}
+                                                        id={item}
+                                                        className={
+                                                            "font-medium leading-4 text-gray-800 border px-3 py-1 w-20 text-center cursor-pointer text-xs rounded-full " +
+                                                            (color === item ? "border-gray-800 " : "border-gray-200 ") +
+                                                            (color === item ? "bg-black " : "bg-gray-200 ") +
+                                                            (color === item ? "text-white" : "text-gray-700")
+                                                        }
+                                                    >
+                                                        {item}
+                                                    </div>
                                                 );
                                             })}
                                         </div>
@@ -136,46 +157,24 @@ export default function DetailProduct({ productDetail }) {
                                     <legend className="mb-1 text-sm font-medium">Size</legend>
 
                                     <div className="flow-root">
-                                        <div className="flex flex-wrap -m-0.5">
-                                            <label htmlFor="size_xs" className="cursor-pointer p-0.5">
-                                                <input type="radio" name="size" id="size_xs" className="sr-only peer" />
-
-                                                <span className="inline-flex items-center justify-center w-8 h-8 text-xs font-medium border rounded-full group peer-checked:bg-black peer-checked:text-white">
-                                                    XS
-                                                </span>
-                                            </label>
-
-                                            <label htmlFor="size_s" className="cursor-pointer p-0.5">
-                                                <input type="radio" name="size" id="size_s" className="sr-only peer" />
-
-                                                <span className="inline-flex items-center justify-center w-8 h-8 text-xs font-medium border rounded-full group peer-checked:bg-black peer-checked:text-white">
-                                                    S
-                                                </span>
-                                            </label>
-
-                                            <label htmlFor="size_m" className="cursor-pointer p-0.5">
-                                                <input type="radio" name="size" id="size_m" className="sr-only peer" />
-
-                                                <span className="inline-flex items-center justify-center w-8 h-8 text-xs font-medium border rounded-full group peer-checked:bg-black peer-checked:text-white">
-                                                    M
-                                                </span>
-                                            </label>
-
-                                            <label htmlFor="size_l" className="cursor-pointer p-0.5">
-                                                <input type="radio" name="size" id="size_l" className="sr-only peer" />
-
-                                                <span className="inline-flex items-center justify-center w-8 h-8 text-xs font-medium border rounded-full group peer-checked:bg-black peer-checked:text-white">
-                                                    L
-                                                </span>
-                                            </label>
-
-                                            <label htmlFor="size_xl" className="cursor-pointer p-0.5">
-                                                <input type="radio" name="size" id="size_xl" className="sr-only peer" />
-
-                                                <span className="inline-flex items-center justify-center w-8 h-8 text-xs font-medium border rounded-full group peer-checked:bg-black peer-checked:text-white">
-                                                    XL
-                                                </span>
-                                            </label>
+                                        <div className="flex flex-wrap -m-0.5 gap-3">
+                                            {productDetail.size?.map((item, index) => {
+                                                return (
+                                                    <div
+                                                        key={index}
+                                                        onClick={() => getSize(item)}
+                                                        id={item}
+                                                        className={
+                                                            "font-medium leading-4 text-gray-800 border px-3 py-1 w-20 text-center cursor-pointer text-xs rounded-full " +
+                                                            (size === item ? "border-gray-500 " : "border-gray-200 ") +
+                                                            (size === item ? "bg-black " : "bg-gray-200 ") +
+                                                            (size === item ? "text-white" : "text-gray-700")
+                                                        }
+                                                    >
+                                                        {item}
+                                                    </div>
+                                                );
+                                            })}
                                         </div>
                                     </div>
                                 </fieldset>
@@ -212,7 +211,7 @@ export default function DetailProduct({ productDetail }) {
     );
 }
 
-export async function getServerSideProps({ params: { id }, req, res }) {
+export async function getServerSideProps({ params: { id } }) {
     const baseUrl = "http://ken-shop.herokuapp.com/api/v1/";
     const url = baseUrl + "product/" + id;
     const product = await fetch(url).then((results) => results.json());

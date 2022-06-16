@@ -12,15 +12,23 @@ import {
 } from "@chakra-ui/react";
 import { Dialog, Disclosure, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
-import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from "@heroicons/react/solid";
+import {
+    ChevronDownIcon,
+    FilterIcon,
+    MinusSmIcon,
+    PlusSmIcon,
+    ViewGridIcon,
+    ViewListIcon,
+} from "@heroicons/react/solid";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
+import ProductList from "../components/ProductList";
 import { ApiHelper } from "../helpers";
 import { setLoading } from "../stores/slices/loading";
 
-const ProductList = dynamic(() => import("../components/ProductList"));
+const ProductGrid = dynamic(() => import("../components/ProductGrid"));
 const subCategories = [
     { name: "All", href: "#", current: true },
     { name: "Men", href: "#" },
@@ -69,6 +77,7 @@ const filters = [
 export default function AllProduct({ data }) {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [products, setProducts] = useState(data);
+    const [viewMode, setViewMode] = useState(true);
     const dispatch = useDispatch();
 
     const sortProduct = async (sortBy) => {
@@ -228,7 +237,7 @@ export default function AllProduct({ data }) {
                     </Transition.Root>
 
                     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="relative z-10 flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
+                        <div className="relative z-10 flex items-baseline justify-between pt-12 pb-6 border-b border-gray-200">
                             <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">New Arrivals</h1>
 
                             <div className="flex items-center gap-3">
@@ -260,7 +269,14 @@ export default function AllProduct({ data }) {
 
                                 <IconButton
                                     aria-label="Search database"
-                                    icon={<ViewGridIcon className="w-5 h-5" aria-hidden="true" />}
+                                    icon={
+                                        viewMode ? (
+                                            <ViewListIcon className="w-5 h-5" aria-hidden="true" />
+                                        ) : (
+                                            <ViewGridIcon className="w-5 h-5" aria-hidden="true" />
+                                        )
+                                    }
+                                    onClick={() => setViewMode(!viewMode)}
                                 />
                                 <button
                                     type="button"
@@ -346,7 +362,12 @@ export default function AllProduct({ data }) {
                                 {/* Product grid */}
                                 <div className="lg:col-span-3">
                                     {/* Replace with your content */}
-                                    <ProductList products={products} />
+                                    {viewMode ? (
+                                        <ProductGrid products={products} />
+                                    ) : (
+                                        <ProductList products={products} />
+                                    )}
+
                                     {/* /End replace */}
                                 </div>
                             </div>

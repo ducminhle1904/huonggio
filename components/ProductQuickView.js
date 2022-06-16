@@ -1,12 +1,14 @@
-import { StarIcon } from "@heroicons/react/solid";
-import Image from "next/image";
-import React, { useState } from "react";
+import Link from "next/link";
+import { useState } from "react";
+import { BsStar, BsStarFill } from "react-icons/bs";
+import Rating from "react-rating";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../stores/slices/cart";
 import { generateCurrency } from "../helpers";
+import { addToCart } from "../stores/slices/cart";
+import Slider from "./Common/Slider";
 
 const ProductQuickView = ({ data }) => {
-    const [color, setColor] = useState("White");
+    const [color, setColor] = useState("");
     const [size, setSize] = useState("");
 
     const getColor = (value) => {
@@ -27,50 +29,54 @@ const ProductQuickView = ({ data }) => {
             <div className="2xl:container 2xl:mx-auto relative flex justify-start w-full item-start flex-col lg:flex-row lg:space-x-8 pb-8 bg-white">
                 <div className="w-full lg:w-1/2">
                     <div className="relative">
-                        <div className="w-full h-full text-center">
-                            <Image src={data.image[0]} alt={data.title} width={400} height={500} objectFit="contain" />
+                        <div className="w-full h-[50vh] text-center">
+                            <Slider data={data.image} objectFit="contain" />
                         </div>
                     </div>
                 </div>
                 <div className="mt-6 md:mt-8 lg:mt-0 flex justify-start items-start w-full lg:w-1/2 flex-col">
-                    <h2 className=" lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 font-semibold">
-                        {data.product_name}
-                    </h2>
+                    <Link href={`/product/${data.product_id}`}>
+                        <h2 className=" lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 font-semibold cursor-pointer">
+                            {data.product_name}
+                        </h2>
+                    </Link>
+                    <div className="cursor-pointer flex space-x-2 mr-3">
+                        <Rating
+                            initialRating={data.rating}
+                            emptySymbol={<BsStar fill="#FDCC0D" />}
+                            fullSymbol={<BsStarFill fill="#FDCC0D" />}
+                            readonly
+                        />
+                    </div>
                     <div className=" flex justify-start items-center mt-4">
                         <p className="font-normal text-lg leading-6 text-gray-600 mr-4">
                             Price: {generateCurrency(data.price)}
                         </p>
-                        <div className="cursor-pointer flex space-x-2 mr-3">
-                            <StarIcon className="text-gray-500 h-6 w-6" />
-                            <StarIcon className="text-gray-500 h-6 w-6" />
-                            <StarIcon className="text-gray-500 h-6 w-6" />
-                            <StarIcon className="text-gray-500 h-6 w-6" />
-                            <StarIcon className="text-gray-500 h-6 w-6" />
-                        </div>
+
                         <p className=" font-normal text-sm leading-3 hover:text-gray-700 duration-100 cursor-pointer text-gray-500 underline">
                             18 reviews
                         </p>
                     </div>
                     <div className="  mt-10">
                         <p id="text" className=" font-semibold text-base leading-4 text-gray-800">
-                            {color}
+                            Màu sắc: {color}
                         </p>
                         <div className=" flex space-x-2 mt-4">
-                            <div
-                                tabIndex="0"
-                                onClick={() => getColor("White")}
-                                className="focus:outline-none ring-1 ring-offset-2 ring-gray-800 rounded-full cursor-pointer w-8 h-8 bg-gray-50"
-                            ></div>
-                            <div
-                                tabIndex="0"
-                                onClick={() => getColor("Red")}
-                                className="focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-gray-800 rounded-full cursor-pointer w-8 h-8 bg-red-700"
-                            ></div>
-                            <div
-                                tabIndex="0"
-                                onClick={() => getColor("Yellow")}
-                                className="focus:outline-none focus:ring-1 focus:ring-offset-2 focus:ring-gray-800 rounded-full cursor-pointer w-8 h-8 bg-yellow-300"
-                            ></div>
+                            {data.color?.map((item, index) => (
+                                <div
+                                    key={index}
+                                    onClick={() => getColor(item)}
+                                    id={item}
+                                    className={
+                                        "font-medium text-base leading-4 text-gray-800 border py-3 w-20 text-center cursor-pointer " +
+                                        (color === item ? "border-gray-500 " : "border-gray-200 ") +
+                                        (color === item ? "bg-black " : "bg-gray-200 ") +
+                                        (color === item ? "text-white" : "text-gray-700")
+                                    }
+                                >
+                                    {item}
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className=" mt-10 w-full">
@@ -81,56 +87,21 @@ const ProductQuickView = ({ data }) => {
                             </p>
                         </div>
                         <div className=" grid grid-cols-3 gap-7 sm:flex sm:flex-wrap md:gap-4 sm:justify-between lg:justify-start mt-4">
-                            <div
-                                onClick={() => getSize("XS")}
-                                id="XS"
-                                className={
-                                    "font-medium text-base leading-4 text-gray-800 border  py-3 w-20 text-center cursor-pointer " +
-                                    (size === "XS" ? "border-gray-500" : "border-gray-200")
-                                }
-                            >
-                                XS
-                            </div>
-                            <div
-                                onClick={() => getSize("S")}
-                                id="S"
-                                className={
-                                    "font-medium text-base leading-4 text-gray-800 border py-3 w-20 text-center cursor-pointer " +
-                                    (size === "S" ? "border-gray-500" : "border-gray-200")
-                                }
-                            >
-                                S
-                            </div>
-                            <div
-                                onClick={() => getSize("M")}
-                                id="M"
-                                className={
-                                    "font-medium text-base leading-4 text-gray-800 border py-3 w-20 text-center cursor-pointer " +
-                                    (size === "M" ? "border-gray-500" : "border-gray-200")
-                                }
-                            >
-                                M
-                            </div>
-                            <div
-                                onClick={() => getSize("L")}
-                                id="L"
-                                className={
-                                    "font-medium text-base leading-4 text-gray-800 border py-3 w-20 text-center cursor-pointer " +
-                                    (size === "L" ? "border-gray-500" : "border-gray-200")
-                                }
-                            >
-                                L
-                            </div>
-                            <div
-                                onClick={() => getSize("XL")}
-                                id="XL"
-                                className={
-                                    "font-medium text-base leading-4 text-gray-800 border py-3 w-20 text-center cursor-pointer " +
-                                    (size === "XL" ? "border-gray-500" : "border-gray-200")
-                                }
-                            >
-                                XL
-                            </div>
+                            {data.size?.map((item, index) => (
+                                <div
+                                    key={index}
+                                    onClick={() => getSize(item)}
+                                    id={item}
+                                    className={
+                                        "font-medium text-base leading-4 text-gray-800 border py-3 w-20 text-center cursor-pointer " +
+                                        (size === item ? "border-gray-500 " : "border-gray-200 ") +
+                                        (size === item ? "bg-black " : "bg-gray-200 ") +
+                                        (size === item ? "text-white" : "text-gray-700")
+                                    }
+                                >
+                                    {item}
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <p className=" mt-4 mb-4 font-normal text-sm leading-3 text-gray-500 hover:text-gray-600 duration-100 underline cursor-pointer">
