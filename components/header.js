@@ -1,8 +1,12 @@
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { MenuIcon, SearchIcon, ShoppingBagIcon, XIcon } from "@heroicons/react/outline";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+import { useDisclosure } from "@chakra-ui/react";
+import Search from "./Search";
+const ModalPopup = dynamic(() => import("./Common/Modal"));
 
 const navigation = {
     categories: [
@@ -131,8 +135,9 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-export default function Header({ onOpen }) {
+export default function Header({ openCart }) {
     const [open, setOpen] = useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const cart = useSelector((state) => state.cart);
 
     return (
@@ -459,16 +464,21 @@ export default function Header({ onOpen }) {
 
                                     {/* Search */}
                                     <div className="flex lg:ml-6">
-                                        <Link href="#" passHref>
-                                            <a className="p-2 text-gray-400 hover:text-gray-500">
-                                                <span className="sr-only">Search</span>
-                                                <SearchIcon className="w-6 h-6" aria-hidden="true" />
-                                            </a>
-                                        </Link>
+                                        <p className="p-2 text-gray-400 hover:text-gray-500">
+                                            <span className="sr-only">Tìm kiếm sản phẩm</span>
+                                            <SearchIcon className="w-6 h-6" aria-hidden="true" onClick={onOpen} />
+                                            <ModalPopup
+                                                isOpen={isOpen}
+                                                onClose={onClose}
+                                                modalTitle="Tìm kiếm sản phẩm"
+                                                childContent={<Search />}
+                                                size="md"
+                                            />
+                                        </p>
                                     </div>
 
                                     {/* Cart */}
-                                    <div className="ml-4 flow-root lg:ml-6" onClick={onOpen}>
+                                    <div className="ml-4 flow-root lg:ml-6" onClick={openCart}>
                                         <Link href="#" passHref>
                                             <a className="group -m-2 p-2 flex items-center">
                                                 <ShoppingBagIcon

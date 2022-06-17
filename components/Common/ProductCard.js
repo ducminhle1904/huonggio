@@ -33,6 +33,7 @@ export default function ProductCard({ product }) {
                 onClose={onClose}
                 modalTitle="Product Quick View"
                 childContent={<ProductQuickView data={product} />}
+                size="6xl"
             />
             <div className="flex flex-col">
                 <div>

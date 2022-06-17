@@ -1,14 +1,15 @@
 import { useDisclosure } from "@chakra-ui/react";
-import SidePanel from "./Common/SidePanel";
 import Footer from "./footer";
 import Header from "./header";
-import CartSlideOver from "./CartSlideOver";
+import dynamic from "next/dynamic";
+const SidePanel = dynamic(() => import("./Common/SidePanel"));
+const CartSlideOver = dynamic(() => import("./CartSlideOver"));
 
 export default function Layout({ children }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <>
-            <Header onOpen={onOpen} />
+            <Header openCart={onOpen} />
             <main>{children}</main>
             <SidePanel isOpen={isOpen} onClose={onClose} childContent={<CartSlideOver />}></SidePanel>
             <Footer />
