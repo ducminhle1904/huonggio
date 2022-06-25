@@ -22,24 +22,17 @@ import {
 } from "@heroicons/react/solid";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
-import { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import ProductList from "../components/ProductList";
 import { ApiHelper } from "../helpers";
 import { setLoading } from "../stores/slices/loading";
 
 const ProductGrid = dynamic(() => import("../components/ProductGrid"));
-const subCategories = [
-    { name: "All", href: "#", current: true },
-    { name: "Men", href: "#" },
-    { name: "Women", href: "#" },
-    { name: "Electronics", href: "#" },
-    { name: "Jewelery", href: "#" },
-];
 const filters = [
     {
         id: "color",
-        name: "Color",
+        name: "Màu sắc",
         options: [
             { value: "white", label: "White", checked: false },
             { value: "beige", label: "Beige", checked: false },
@@ -50,26 +43,15 @@ const filters = [
         ],
     },
     {
-        id: "category",
-        name: "Category",
-        options: [
-            { value: "new-arrivals", label: "New Arrivals", checked: false },
-            { value: "sale", label: "Sale", checked: false },
-            { value: "travel", label: "Travel", checked: true },
-            { value: "organization", label: "Organization", checked: false },
-            { value: "accessories", label: "Accessories", checked: false },
-        ],
-    },
-    {
         id: "size",
         name: "Size",
         options: [
-            { value: "2l", label: "2L", checked: false },
-            { value: "6l", label: "6L", checked: false },
-            { value: "12l", label: "12L", checked: false },
-            { value: "18l", label: "18L", checked: false },
-            { value: "20l", label: "20L", checked: false },
-            { value: "40l", label: "40L", checked: true },
+            { value: "SMALL", label: "S", checked: false },
+            { value: "MEDIUM", label: "M", checked: false },
+            { value: "LARGE", label: "L", checked: false },
+            { value: "XLARGE", label: "XL", checked: false },
+            { value: "X2_LARGE", label: "2XL", checked: false },
+            { value: "X3_LARGE", label: "3XL", checked: true },
         ],
     },
 ];
@@ -78,30 +60,40 @@ export default function AllProduct({ data }) {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [products, setProducts] = useState(data);
     const [viewMode, setViewMode] = useState(true);
+    const [category, setCategory] = React.useState([]);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        async function fetchCategory() {
+            await ApiHelper("category/all").then((res) => {
+                setCategory(res.all_category);
+            });
+        }
+        fetchCategory();
+    }, []);
 
     const sortProduct = async (sortBy) => {
         let url = "";
         let data = [];
         dispatch(setLoading(true));
         if (sortBy === "lowtohigh") {
-            url = "product/all?page=0&unPaged=false&size=100&sort=price,asc";
+            url = "product/all?page=0&size=100&sort=price&direction=DESC";
             data = await ApiHelper(url).then((response) => response);
         }
         if (sortBy === "hightolow") {
-            url = "product/all?page=0&unPaged=false&size=100&sort=price,desc";
+            url = "product/all?page=0&size=100&sort=price&direction=DESC";
             data = await ApiHelper(url).then((response) => response);
         }
         if (sortBy === "created") {
-            url = "product/all?page=0&unPaged=false&size=100&sort=created_at,desc";
+            url = "product/all?page=0&size=100&sort=created_at&direction=DESC";
             data = await ApiHelper(url).then((response) => response);
         }
         if (sortBy === "rating") {
-            url = "product/all?page=0&unPaged=false&size=100&sort=product_review_point,desc";
+            url = "product/all?page=0&size=100&sort=product_review_point&direction=DESC";
             data = await ApiHelper(url).then((response) => response);
         }
         if (sortBy === "sold_quantity") {
-            url = "product/all?page=0&unPaged=false&size=100&sort=sold_quantity,desc";
+            url = "product/all?page=0&size=100&sort=sold_quantity&direction=DESC";
             data = await ApiHelper(url).then((response) => response);
         }
         dispatch(setLoading(false));
@@ -164,9 +156,9 @@ export default function AllProduct({ data }) {
                                                     paddingX="1rem"
                                                     paddingY="1.5rem"
                                                 >
-                                                    {subCategories.map((category) => (
-                                                        <Checkbox value={category.name} key={category.name}>
-                                                            {category.name}
+                                                    {category.map((item) => (
+                                                        <Checkbox value={item.category_name} key={item.category_id}>
+                                                            {item.category_name}
                                                         </Checkbox>
                                                     ))}
                                                 </Stack>
@@ -304,9 +296,9 @@ export default function AllProduct({ data }) {
                                         onChange={(value) => console.log(value)}
                                     >
                                         <Stack spacing={[1, 5]} direction={["column"]}>
-                                            {subCategories.map((category) => (
-                                                <Checkbox value={category.name} key={category.name}>
-                                                    {category.name}
+                                            {category.map((item) => (
+                                                <Checkbox value={item.category_name} key={item.category_id}>
+                                                    {item.category_name}
                                                 </Checkbox>
                                             ))}
                                         </Stack>

@@ -9,7 +9,6 @@ const ProductGrid = dynamic(() => import("./ProductGrid"));
 export default function ProductFilter({ data }) {
     const [dataProduct, setDataProduct] = React.useState(data);
     const [category, setCategory] = React.useState([]);
-    const [categoryId, setCategoryId] = React.useState("");
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -24,8 +23,8 @@ export default function ProductFilter({ data }) {
     async function changeTab(id) {
         dispatch(setLoading(true));
         let url = id
-            ? "product/all?page=0&unPaged=false&size=8&sort=price,desc&category="
-            : "product/all?page=0&unPaged=false&size=8&sort=price,desc";
+            ? "product/all?page=0&size=8&sort=price&direction=DESC&category="
+            : "product/all?page=0&size=8&sort=price&direction=DESC";
         await ApiHelper(url + id).then((results) => {
             setDataProduct(results.product_list);
             dispatch(setLoading(false));

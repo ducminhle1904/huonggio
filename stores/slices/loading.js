@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     loading: false,
+    searchLoading: false,
     error: null,
 };
 
@@ -12,7 +13,10 @@ export const loadingSlice = createSlice({
         setLoading: (state, action) => {
             state.loading = action.payload;
         },
+        setSearchLoading: (state, action) => {
+            state.searchLoading = action.payload;
+        },
     },
 });
-export const { setLoading } = loadingSlice.actions;
+export const { setLoading, setSearchLoading } = loadingSlice.actions;
 export default loadingSlice.reducer;

@@ -3,26 +3,32 @@ import { Input, InputGroup, InputLeftElement, InputRightElement, Spinner } from 
 import { debounce } from "lodash";
 import React, { useCallback, useState } from "react";
 import { ApiHelper } from "../helpers";
-import { setLoading } from "../stores/slices/loading";
+import { setSearchLoading } from "../stores/slices/loading";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
+import { BsSearch } from "react-icons/bs";
+import { Kbd } from "@chakra-ui/react";
 
 export default function Search() {
-    const [visible, setVisible] = useState(false);
+    const dispatch = useDispatch();
+    const isLoading = useSelector((state) => state.loading.searchLoading);
     const [keyword, setKeyword] = useState("");
     const [dropdownOptions, setDropdownOptions] = useState([]);
-    const dispatch = useDispatch();
-    const isLoading = useSelector((state) => state.loading.loading);
+    const [isHaveProduct, setIsHaveProduct] = useState(false);
 
     async function fetchDropdownOptions(key) {
         let url = "product/search?name=";
         if (key) {
-            dispatch(setLoading(true));
+            dispatch(setSearchLoading(true));
             let data = await ApiHelper(url + key).then((response) => response);
-            setVisible(true);
-            setDropdownOptions(data.product_list);
+            if (data.product_list.length > 0) {
+                setIsHaveProduct(true);
+                setDropdownOptions(data.product_list);
+            } else {
+                setIsHaveProduct(false);
+            }
             setTimeout(() => {
-                dispatch(setLoading(false));
+                dispatch(setSearchLoading(false));
             }, 500);
         }
     }
@@ -35,7 +41,7 @@ export default function Search() {
         setKeyword(value);
         debounceDropDown(value);
         if (value === "") {
-            setVisible(false);
+            setIsHaveProduct(false);
             setDropdownOptions([]);
         }
     }
@@ -44,7 +50,7 @@ export default function Search() {
             <InputGroup>
                 <InputLeftElement>
                     <span role="img" aria-label="search">
-                        🔍
+                        <BsSearch />
                     </span>
                 </InputLeftElement>
                 <Input type="text" placeholder="" value={keyword} onChange={handleInputOnchange} />
@@ -53,7 +59,7 @@ export default function Search() {
 
             <section>
                 <div className="space-y-8 lg:divide-y lg:divide-gray-100">
-                    {visible &&
+                    {isHaveProduct &&
                         dropdownOptions.map((product) => (
                             <div className="pt-8 sm:flex group" key={product.product_id}>
                                 <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-4">
@@ -74,6 +80,9 @@ export default function Search() {
                                 </div>
                             </div>
                         ))}
+
+                    {!isHaveProduct && !keyword && <Kbd>Sản phẩm bạn tìm kiếm sẽ hiện thị ở đây</Kbd>}
+                    {!isHaveProduct && <Kbd>Chúng tôi không tìm thấy sản phẩm bạn đang tìm kiếm</Kbd>}
                 </div>
             </section>
         </>

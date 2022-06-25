@@ -50,7 +50,7 @@ export default function Home({ data }) {
                     <Center>
                         <Link href="/products">
                             <Button className="mt-4 mx-auto block" colorScheme="teal" size="lg">
-                                Load More
+                                Xem thêm
                             </Button>
                         </Link>
                     </Center>
