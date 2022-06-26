@@ -113,10 +113,10 @@ const ProductQuickView = ({ data }) => {
                             className="border border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 md:w-96 w-full hover:bg-black text-base font-medium leading-4 bg-gray-800 py-4 text-white"
                             onClick={() => handleAddToCart(data)}
                         >
-                            Add to Bag
+                            Thêm vào giỏ hàng
                         </button>
                         <button className="border border-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 md:w-96 w-full hover:bg-gray-300 text-base font-medium leading-4 text-gray-800 py-4 bg-white">
-                            Add to Wishlist
+                            Thêm vào sản phẩm mong muốn
                         </button>
                     </div>
                 </div>

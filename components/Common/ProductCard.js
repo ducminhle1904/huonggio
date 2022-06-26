@@ -26,12 +26,12 @@ export default function ProductCard({ product }) {
                 className="opacity-0 bottom-[40%] left-1/2 transform -translate-x-1/2 z-10 lg:opacity-0 lg:group-hover:opacity-100 duration-500"
                 onClick={onOpen}
             >
-                Quick View
+                Xem nhanh
             </Button>
             <ModalPopup
                 isOpen={isOpen}
                 onClose={onClose}
-                modalTitle="Product Quick View"
+                modalTitle="Xem nhanh sản phẩm"
                 childContent={<ProductQuickView data={product} />}
                 size="6xl"
             />

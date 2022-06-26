@@ -1,11 +1,12 @@
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { MenuIcon, SearchIcon, ShoppingBagIcon, XIcon } from "@heroicons/react/outline";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useDisclosure } from "@chakra-ui/react";
 import Search from "./Search";
+import { useRouter } from "next/router";
 const ModalPopup = dynamic(() => import("./Common/Modal"));
 
 const navigation = {
@@ -137,8 +138,31 @@ function classNames(...classes) {
 
 export default function Header({ openCart }) {
     const [open, setOpen] = useState(false);
+    const [width, setWidth] = useState("");
     const { isOpen, onOpen, onClose } = useDisclosure();
     const cart = useSelector((state) => state.cart);
+    const router = useRouter();
+
+    function handleWindowSizeChange() {
+        setWidth(window.innerWidth);
+    }
+
+    useEffect(() => {
+        setWidth(window.innerWidth);
+    }, []);
+
+    useEffect(() => {
+        window.addEventListener("resize", handleWindowSizeChange);
+        return () => {
+            window.removeEventListener("resize", handleWindowSizeChange);
+        };
+    }, []);
+
+    useEffect(() => {
+        onClose();
+    }, [router.asPath]);
+
+    const isMobile = width <= 768;
 
     return (
         <>
@@ -451,13 +475,13 @@ export default function Header({ openCart }) {
                                     <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                                         <Link href="/login" passHref>
                                             <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                                Sign in
+                                                Đăng nhập
                                             </a>
                                         </Link>
                                         <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                                         <Link href="#" passHref>
                                             <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                                Create account
+                                                Tạo tài khoản
                                             </a>
                                         </Link>
                                     </div>
@@ -472,25 +496,23 @@ export default function Header({ openCart }) {
                                                 onClose={onClose}
                                                 modalTitle="Tìm kiếm sản phẩm"
                                                 childContent={<Search />}
-                                                size="md"
+                                                size={isMobile ? "full" : "md"}
                                             />
                                         </p>
                                     </div>
 
                                     {/* Cart */}
                                     <div className="ml-4 flow-root lg:ml-6" onClick={openCart}>
-                                        <Link href="#" passHref>
-                                            <a className="group -m-2 p-2 flex items-center">
-                                                <ShoppingBagIcon
-                                                    className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
-                                                    aria-hidden="true"
-                                                />
-                                                <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                                                    {cart.cart.length}
-                                                </span>
-                                                <span className="sr-only">items in cart, view bag</span>
-                                            </a>
-                                        </Link>
+                                        <span className="group -m-2 p-2 flex items-center">
+                                            <ShoppingBagIcon
+                                                className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                                                aria-hidden="true"
+                                            />
+                                            <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                                                {cart.cart.length}
+                                            </span>
+                                            <span className="sr-only">items in cart, view bag</span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>

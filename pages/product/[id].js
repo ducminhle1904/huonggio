@@ -129,7 +129,7 @@ export default function DetailProduct({ productDetail }) {
 
                             <form className="mt-8">
                                 <fieldset>
-                                    <legend className="mb-1 text-sm font-medium">Color</legend>
+                                    <legend className="mb-1 text-sm font-medium">Màu sắc</legend>
                                     <div className="flow-root">
                                         <div className="flex flex-wrap -m-0.5 gap-3">
                                             {productDetail.color.map((item, index) => {
@@ -180,26 +180,12 @@ export default function DetailProduct({ productDetail }) {
                                 </fieldset>
 
                                 <div className="flex mt-8">
-                                    <div>
-                                        <label htmlFor="quantity" className="sr-only">
-                                            Qty
-                                        </label>
-
-                                        {/*<input*/}
-                                        {/*    type="number"*/}
-                                        {/*    id="quantity"*/}
-                                        {/*    min="1"*/}
-                                        {/*    value="1"*/}
-                                        {/*    className="w-12 py-3 text-xs text-center border-gray-200 rounded no-spinners"*/}
-                                        {/*/>*/}
-                                    </div>
-
                                     <button
                                         type="submit"
                                         className="block px-5 py-3 ml-3 text-xs font-medium text-white bg-green-600 rounded hover:bg-green-500"
                                         onClick={() => handleAddToCart(productDetail, event)}
                                     >
-                                        Add to Cart
+                                        Thêm vào giỏ hàng
                                     </button>
                                 </div>
                             </form>
