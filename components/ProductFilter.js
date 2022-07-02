@@ -1,7 +1,7 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import React, { useEffect } from "react";
-import { ApiHelper } from "../helpers";
+import { ApiHelper, ApiProductHelper } from "../helpers/apiHelper";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../stores/slices/loading";
 const ProductGrid = dynamic(() => import("./ProductGrid"));
@@ -22,13 +22,18 @@ export default function ProductFilter({ data }) {
 
     async function changeTab(id) {
         dispatch(setLoading(true));
-        let url = id
-            ? "product/all?page=0&size=8&sort=price&direction=DESC&category="
-            : "product/all?page=0&size=8&sort=price&direction=DESC";
-        await ApiHelper(url + id).then((results) => {
-            setDataProduct(results.product_list);
-            dispatch(setLoading(false));
-        });
+        let url = "";
+        if (id) {
+            await ApiProductHelper(0, 8, "price", "DESC", id).then((results) => {
+                setDataProduct(results.product_list);
+                dispatch(setLoading(false));
+            });
+        } else {
+            await ApiProductHelper(0, 8, "price", "DESC").then((results) => {
+                setDataProduct(results.product_list);
+                dispatch(setLoading(false));
+            });
+        }
     }
 
     return (

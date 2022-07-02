@@ -25,7 +25,7 @@ import dynamic from "next/dynamic";
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import ProductList from "../components/ProductList";
-import { ApiHelper } from "../helpers";
+import { ApiHelper, ApiProductHelper } from "../helpers/apiHelper";
 import { setLoading } from "../stores/slices/loading";
 
 const ProductGrid = dynamic(() => import("../components/ProductGrid"));
@@ -73,28 +73,22 @@ export default function AllProduct({ data }) {
     }, []);
 
     const sortProduct = async (sortBy) => {
-        let url = "";
         let data = [];
         dispatch(setLoading(true));
         if (sortBy === "lowtohigh") {
-            url = "product/all?page=0&size=100&sort=price&direction=DESC";
-            data = await ApiHelper(url).then((response) => response);
+            data = await ApiProductHelper(0, 100, "price", "DESC").then((response) => response);
         }
         if (sortBy === "hightolow") {
-            url = "product/all?page=0&size=100&sort=price&direction=DESC";
-            data = await ApiHelper(url).then((response) => response);
+            data = await ApiProductHelper(0, 100, "price").then((response) => response);
         }
         if (sortBy === "created") {
-            url = "product/all?page=0&size=100&sort=created_at&direction=DESC";
-            data = await ApiHelper(url).then((response) => response);
+            data = await ApiProductHelper(0, 100, "created_at", "DESC").then((response) => response);
         }
         if (sortBy === "rating") {
-            url = "product/all?page=0&size=100&sort=product_review_point&direction=DESC";
-            data = await ApiHelper(url).then((response) => response);
+            data = await ApiProductHelper(0, 100, "product_review_point", "DESC").then((response) => response);
         }
         if (sortBy === "sold_quantity") {
-            url = "product/all?page=0&size=100&sort=sold_quantity&direction=DESC";
-            data = await ApiHelper(url).then((response) => response);
+            data = await ApiProductHelper(0, 100, "sold_quantity", "DESC").then((response) => response);
         }
         dispatch(setLoading(false));
         setProducts(data.product_list);
