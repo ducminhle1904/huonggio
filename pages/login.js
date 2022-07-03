@@ -3,9 +3,11 @@ import { NextSeo } from "next-seo";
 import React, { useState } from "react";
 import Link from "next/link";
 import { ApiHelper } from "../helpers/apiHelper";
+import { useSession, signIn, getProviders, getSession } from "next-auth/react";
 
-export default function Login() {
+export default function Login({ providers }) {
     const [sidebar, setsidebar] = useState();
+
     return (
         <>
             <NextSeo
@@ -41,11 +43,13 @@ export default function Login() {
                                 Sign up here
                             </span>
                         </p>
-                        <Link href={`${process.env.NEXT_PUBLIC_BASE_PATH_API}oauth/google`} passHref>
+                        {Object.values(providers).map((provider) => (
                             <button
                                 aria-label="Continue with google"
                                 role="button"
                                 className="focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full mt-10"
+                                onClick={() => signIn(provider.id, { callbackUrl: "/" })}
+                                key={provider.name}
                             >
                                 <svg
                                     width={19}
@@ -74,7 +78,7 @@ export default function Login() {
 
                                 <p className="text-base font-medium ml-4 text-gray-700">Continue with Google</p>
                             </button>
-                        </Link>
+                        ))}
 
                         <button
                             aria-label="Continue with github"
@@ -167,4 +171,24 @@ export default function Login() {
             </div>
         </>
     );
+}
+
+export async function getServerSideProps(context) {
+    const providers = await getProviders();
+    // check if the user is authenticated on the server
+    const session = await getSession(context);
+    if (session) {
+        // if not, redirect to login
+        return {
+            redirect: {
+                destination: "/",
+                permanent: false,
+            },
+        };
+    }
+    return {
+        props: {
+            providers,
+        },
+    };
 }

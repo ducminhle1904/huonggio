@@ -7,6 +7,8 @@ import dynamic from "next/dynamic";
 import { useDisclosure } from "@chakra-ui/react";
 import Search from "./Search";
 import { useRouter } from "next/router";
+import { useSession, signOut } from "next-auth/react";
+import AvatarComponent from "./Avatar";
 const ModalPopup = dynamic(() => import("./Common/Modal"));
 
 const navigation = {
@@ -142,6 +144,7 @@ export default function Header({ openCart }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const cart = useSelector((state) => state.cart);
     const router = useRouter();
+    const { data: session } = useSession();
 
     function handleWindowSizeChange() {
         setWidth(window.innerWidth);
@@ -297,16 +300,20 @@ export default function Header({ openCart }) {
 
                                     <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                                         <div className="flow-root">
-                                            <Link href="/login" passHref>
-                                                <a className="-m-2 p-2 block font-medium text-gray-900">Sign in</a>
-                                            </Link>
-                                        </div>
-                                        <div className="flow-root">
-                                            <Link href="#" passHref>
-                                                <a className="-m-2 p-2 block font-medium text-gray-900">
-                                                    Create account
+                                            {session ? (
+                                                <a
+                                                    className="-m-2 p-2 block font-medium text-gray-900"
+                                                    onClick={() => signOut()}
+                                                >
+                                                    Đăng xuất
                                                 </a>
-                                            </Link>
+                                            ) : (
+                                                <Link href="/login" passHref>
+                                                    <a className="-m-2 p-2 block font-medium text-gray-900">
+                                                        Đăng nhập
+                                                    </a>
+                                                </Link>
+                                            )}
                                         </div>
                                     </div>
                                 </Dialog.Panel>
@@ -473,24 +480,29 @@ export default function Header({ openCart }) {
 
                                 <div className="ml-auto flex items-center">
                                     <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                        <Link href="/login" passHref>
-                                            <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                                Đăng nhập
+                                        {session ? (
+                                            <a
+                                                className="-m-2 p-2 block font-medium text-gray-900 cursor-pointer"
+                                                onClick={() => signOut()}
+                                            >
+                                                Đăng xuất
                                             </a>
-                                        </Link>
-                                        <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                                        <Link href="#" passHref>
-                                            <a className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                                Tạo tài khoản
-                                            </a>
-                                        </Link>
+                                        ) : (
+                                            <Link href="/login" passHref>
+                                                <a className="-m-2 p-2 block font-medium text-gray-900">Đăng nhập</a>
+                                            </Link>
+                                        )}
                                     </div>
 
                                     {/* Search */}
                                     <div className="flex lg:ml-6">
                                         <p className="p-2 text-gray-400 hover:text-gray-500">
                                             <span className="sr-only">Tìm kiếm sản phẩm</span>
-                                            <SearchIcon className="w-6 h-6" aria-hidden="true" onClick={onOpen} />
+                                            <SearchIcon
+                                                className="w-6 h-6 cursor-pointer"
+                                                aria-hidden="true"
+                                                onClick={onOpen}
+                                            />
                                             <ModalPopup
                                                 isOpen={isOpen}
                                                 onClose={onClose}
@@ -514,6 +526,12 @@ export default function Header({ openCart }) {
                                             <span className="sr-only">items in cart, view bag</span>
                                         </span>
                                     </div>
+
+                                    {session ? (
+                                        <div className="ml-4 lg:ml-6">
+                                            <AvatarComponent user={session.user} />
+                                        </div>
+                                    ) : null}
                                 </div>
                             </div>
                         </div>
