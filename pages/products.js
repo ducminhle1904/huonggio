@@ -76,10 +76,10 @@ export default function AllProduct({ data }) {
         let data = [];
         dispatch(setLoading(true));
         if (sortBy === "lowtohigh") {
-            data = await ApiProductHelper(0, 100, "price", "DESC").then((response) => response);
+            data = await ApiProductHelper(0, 100, "price", "ASC").then((response) => response);
         }
         if (sortBy === "hightolow") {
-            data = await ApiProductHelper(0, 100, "price").then((response) => response);
+            data = await ApiProductHelper(0, 100, "price", "DESC").then((response) => response);
         }
         if (sortBy === "created") {
             data = await ApiProductHelper(0, 100, "created_at", "DESC").then((response) => response);

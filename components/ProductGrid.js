@@ -11,7 +11,7 @@ export default function ProductGrid({ products }) {
                     <Progress size="xs" isIndeterminate />
                 ) : (
                     <div className="mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
-                        {products.map((product) => (
+                        {products?.map((product) => (
                             <ProductCard key={product.product_id} product={product} />
                         ))}
                     </div>

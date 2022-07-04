@@ -1,13 +1,7 @@
-import { FaFacebook, FaGoogle } from "react-icons/fa";
+import { getProviders, getSession, signIn } from "next-auth/react";
 import { NextSeo } from "next-seo";
-import React, { useState } from "react";
-import Link from "next/link";
-import { ApiHelper } from "../helpers/apiHelper";
-import { useSession, signIn, getProviders, getSession } from "next-auth/react";
 
 export default function Login({ providers }) {
-    const [sidebar, setsidebar] = useState();
-
     return (
         <>
             <NextSeo
