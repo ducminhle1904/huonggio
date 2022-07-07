@@ -18,18 +18,18 @@ export default function ProductCard({ product }) {
             <div className="w-full rounded-md overflow-hidden group group-hover:opacity-75 transition ease-in-out duration-500 relative text-center">
                 <img src={product?.image[0]} alt={product.product_name} className="w-full h-full object-contain" />
             </div>
-            <div>
-                <Button
-                    variant="outline"
-                    size="md"
-                    width={"60%"}
-                    bgColor="gray.100"
-                    className="opacity-0 bottom-[40%] left-1/2 transform -translate-x-1/2 z-10 lg:opacity-0 lg:group-hover:opacity-100 duration-500"
-                    onClick={onOpen}
-                >
-                    Xem nhanh
-                </Button>
-            </div>
+
+            <Button
+                variant="outline"
+                size="md"
+                width={"60%"}
+                bgColor="gray.100"
+                className="opacity-0 bottom-[40%] left-1/2 transform -translate-x-1/2 z-10 lg:opacity-0 lg:group-hover:opacity-100 duration-500"
+                onClick={onOpen}
+            >
+                Xem nhanh
+            </Button>
+
             <ModalPopup
                 isOpen={isOpen}
                 onClose={onClose}

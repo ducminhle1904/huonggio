@@ -9,6 +9,7 @@ import { generateCurrency } from "../../helpers";
 import { addToCart } from "../../stores/slices/cart";
 import Rating from "react-rating";
 import { BsStar, BsStarFill } from "react-icons/bs";
+import { ProductJsonLd } from "next-seo";
 
 export default function DetailProduct({ productDetail }) {
     const dispatch = useDispatch();
@@ -35,13 +36,40 @@ export default function DetailProduct({ productDetail }) {
         <>
             <NextSeo
                 title={productDetail.product_name}
-                description="Cửa hàng Ken chuyên các mặt hàng thời trang như quần áo, giày dép, phụ kiện trang sức, ..."
+                description={productDetail.product_description}
                 openGraph={{
                     url: "https://ken-shop.vercel.app/",
                     title: "Ken Shopping",
                     description:
                         "Cửa hàng Ken chuyên các mặt hàng thời trang như quần áo, giày dép, phụ kiện trang sức, ...",
+                    images: [
+                        {
+                            url: `${productDetail.image[0]}`,
+                            width: 800,
+                            height: 600,
+                            alt: "Og Image Alt",
+                            type: "image/jpeg",
+                        },
+                    ],
                 }}
+            />
+            <ProductJsonLd
+                productName={productDetail.product_name}
+                images={productDetail.images}
+                description={productDetail.product_description}
+                slogan="Đem đến sản phẩm tốt nhất cho bạn."
+                reviews={[]}
+                aggregateRating={{
+                    ratingValue: `${productDetail.rating}`,
+                    reviewCount: "89",
+                }}
+                offers={[
+                    {
+                        price: `${productDetail.price}`,
+                        priceCurrency: "VND",
+                        priceValidUntil: "2025-12-12",
+                    },
+                ]}
             />
             {isOpen && (
                 <Lightbox
