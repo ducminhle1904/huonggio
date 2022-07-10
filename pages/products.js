@@ -365,14 +365,12 @@ export default function AllProduct({ data }) {
     );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
     const allProductPath = "product/all";
     const data = await ApiHelper(allProductPath).then((res) => res);
     return {
         props: {
             data: data.product_list,
         },
-        // revalidate in 15 minutes
-        revalidate: 15 * 60,
     };
 };

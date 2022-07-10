@@ -61,13 +61,12 @@ export default function Home({ data }) {
     );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
     const allProductPath = "product/all?page=0&size=8";
     const data = await ApiHelper(allProductPath).then((res) => res);
     return {
         props: {
             data: data.product_list,
         },
-        revalidate: 30 * 60,
     };
 };

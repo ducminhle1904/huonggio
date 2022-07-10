@@ -14,8 +14,8 @@ const ModalPopup = dynamic(() => import("./Common/Modal"));
 const navigation = {
     categories: [
         {
-            id: "women",
-            name: "Women",
+            id: "men",
+            name: "Nam",
             featured: [
                 {
                     name: "New Arrivals",
@@ -32,48 +32,42 @@ const navigation = {
             ],
             sections: [
                 {
-                    id: "clothing",
-                    name: "Clothing",
+                    id: "top",
+                    name: "ÁO",
                     items: [
-                        { name: "Tops", href: "#" },
-                        { name: "Dresses", href: "#" },
-                        { name: "Pants", href: "#" },
-                        { name: "Denim", href: "#" },
-                        { name: "Sweaters", href: "#" },
-                        { name: "T-Shirts", href: "#" },
-                        { name: "Jackets", href: "#" },
-                        { name: "Activewear", href: "#" },
-                        { name: "Browse All", href: "#" },
+                        { name: "ÁO SƠ MI", href: "#" },
+                        { name: "ÁO THUN", href: "#" },
+                        { name: "Áo POLO", href: "#" },
+                        { name: "ÁO KHOÁC", href: "#" },
+                    ],
+                },
+                {
+                    id: "bottom",
+                    name: "Quần",
+                    items: [
+                        { name: "QUẦN JEAN", href: "#" },
+                        { name: "QUẦN JOGGER", href: "#" },
+                        { name: "QUẦN SHORT", href: "#" },
+                        { name: "QUẦN KAKI", href: "#" },
+                        { name: "QUẦN TÂY", href: "#" },
                     ],
                 },
                 {
                     id: "accessories",
-                    name: "Accessories",
+                    name: "Phụ kiện",
                     items: [
-                        { name: "Watches", href: "#" },
-                        { name: "Wallets", href: "#" },
-                        { name: "Bags", href: "#" },
-                        { name: "Sunglasses", href: "#" },
-                        { name: "Hats", href: "#" },
-                        { name: "Belts", href: "#" },
-                    ],
-                },
-                {
-                    id: "brands",
-                    name: "Brands",
-                    items: [
-                        { name: "Full Nelson", href: "#" },
-                        { name: "My Way", href: "#" },
-                        { name: "Re-Arranged", href: "#" },
-                        { name: "Counterfeit", href: "#" },
-                        { name: "Significant Other", href: "#" },
+                        { name: "GIÀY DÉP", href: "#" },
+                        { name: "BALO", href: "#" },
+                        { name: "NÓN", href: "#" },
+                        { name: "VỚ", href: "#" },
+                        { name: "THẮT LƯNG", href: "#" },
                     ],
                 },
             ],
         },
         {
-            id: "men",
-            name: "Men",
+            id: "women",
+            name: "Nữ",
             featured: [
                 {
                     name: "New Arrivals",
@@ -91,38 +85,33 @@ const navigation = {
             ],
             sections: [
                 {
-                    id: "clothing",
-                    name: "Clothing",
+                    id: "top",
+                    name: "ÁO",
                     items: [
-                        { name: "Tops", href: "#" },
-                        { name: "Pants", href: "#" },
-                        { name: "Sweaters", href: "#" },
-                        { name: "T-Shirts", href: "#" },
-                        { name: "Jackets", href: "#" },
-                        { name: "Activewear", href: "#" },
-                        { name: "Browse All", href: "#" },
+                        { name: "ÁO SƠ MI", href: "#" },
+                        { name: "ÁO THUN", href: "#" },
+                        { name: "Áo KIỂU", href: "#" },
+                        { name: "ÁO KHOÁC", href: "#" },
+                    ],
+                },
+                {
+                    id: "bottom",
+                    name: "Quần",
+                    items: [
+                        { name: "QUẦN JEAN", href: "#" },
+                        { name: "QUẦN SHORT", href: "#" },
+                        { name: "CHÂN VÁY", href: "#" },
+                        { name: "ĐẦM", href: "#" },
                     ],
                 },
                 {
                     id: "accessories",
-                    name: "Accessories",
+                    name: "Phụ kiện",
                     items: [
-                        { name: "Watches", href: "#" },
-                        { name: "Wallets", href: "#" },
-                        { name: "Bags", href: "#" },
-                        { name: "Sunglasses", href: "#" },
-                        { name: "Hats", href: "#" },
-                        { name: "Belts", href: "#" },
-                    ],
-                },
-                {
-                    id: "brands",
-                    name: "Brands",
-                    items: [
-                        { name: "Re-Arranged", href: "#" },
-                        { name: "Counterfeit", href: "#" },
-                        { name: "Full Nelson", href: "#" },
-                        { name: "My Way", href: "#" },
+                        { name: "GIÀY DÉP", href: "#" },
+                        { name: "BALO", href: "#" },
+                        { name: "NÓN", href: "#" },
+                        { name: "VỚ", href: "#" },
                     ],
                 },
             ],

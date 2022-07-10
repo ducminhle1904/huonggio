@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { NextSeo } from "next-seo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactHtmlParser from "react-html-parser";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
@@ -10,6 +10,7 @@ import { addToCart } from "../../stores/slices/cart";
 import Rating from "react-rating";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { ProductJsonLd } from "next-seo";
+import ProductViewed from "../../components/ProductViewed";
 
 export default function DetailProduct({ productDetail }) {
     const dispatch = useDispatch();
@@ -32,6 +33,20 @@ export default function DetailProduct({ productDetail }) {
         setColor(value);
     };
 
+    useEffect(() => {
+        let productViewedLocal = JSON.parse(localStorage.getItem("productViewed")) || [];
+        if (productViewedLocal.length > 0) {
+            productViewedLocal.forEach((item) => {
+                if (item.product_id !== productDetail.product_id) {
+                    productViewedLocal.push(productDetail);
+                }
+            });
+        } else {
+            productViewedLocal.push(productDetail);
+        }
+        localStorage.setItem("productViewed", JSON.stringify(productViewedLocal));
+    }, [productDetail]);
+
     return (
         <>
             <NextSeo
@@ -47,7 +62,7 @@ export default function DetailProduct({ productDetail }) {
                             url: `${productDetail.image[0]}`,
                             width: 800,
                             height: 600,
-                            alt: "Og Image Alt",
+                            alt: `{productDetail.product_name}`,
                             type: "image/jpeg",
                         },
                     ],
@@ -219,6 +234,7 @@ export default function DetailProduct({ productDetail }) {
                             </form>
                         </div>
                     </div>
+                    {/* <ProductViewed /> */}
                 </div>
             </div>
         </>
