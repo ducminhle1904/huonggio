@@ -1,18 +1,27 @@
 /* eslint-disable @next/next/no-img-element */
-import { Button, Text, Tooltip, useDisclosure } from "@chakra-ui/react";
+import { Button, Text, Tooltip, useDisclosure, useMediaQuery } from "@chakra-ui/react";
 import Link from "next/link";
 import { generateCurrency } from "../../helpers";
 import Rating from "react-rating";
-import { BsStar, BsStarFill } from "react-icons/bs";
+import { BsStar, BsStarFill, BsCartPlus } from "react-icons/bs";
 import { VscEye } from "react-icons/vsc";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../stores/slices/cart";
 
 const ModalPopup = dynamic(() => import("./Modal"));
 const ProductQuickView = dynamic(() => import("../ProductQuickView"));
 
 export default function ProductCard({ product }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [isMobile] = useMediaQuery("(max-width: 768px)", {
+        ssr: false,
+    });
+    const dispatch = useDispatch();
+    const handleAddToCart = (product) => {
+        dispatch(addToCart(product));
+    };
 
     return (
         <div className="max-w-sm bg-white rounded-lg shadow-md">
@@ -45,12 +54,20 @@ export default function ProductCard({ product }) {
                     </span>
                 </div>
                 <div className="flex justify-between items-center">
-                    <span className="text-sm font-bold text-gray-900">Giá: {generateCurrency(product.price)}</span>
-                    <Tooltip hasArrow label="Xem nhanh" bg="teal.600">
-                        <Button onClick={onOpen}>
-                            <VscEye />
-                        </Button>
-                    </Tooltip>
+                    <span className="text-xs font-bold text-gray-900">Giá: {generateCurrency(product.price)}</span>
+                    {isMobile ? (
+                        <div>
+                            <Button onClick={() => handleAddToCart(product)}>
+                                <BsCartPlus />
+                            </Button>
+                        </div>
+                    ) : (
+                        <Tooltip hasArrow label="Xem nhanh" bg="teal.600">
+                            <Button onClick={onOpen}>
+                                <VscEye />
+                            </Button>
+                        </Tooltip>
+                    )}
                 </div>
                 <ModalPopup
                     isOpen={isOpen}
