@@ -10,7 +10,7 @@ export default function ProductGrid({ products }) {
                 {isLoading ? (
                     <Progress size="xs" isIndeterminate />
                 ) : (
-                    <div className="mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
+                    <div className="mt-6 grid grid-cols-2 gap-y-10 gap-x-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-x-5">
                         {products?.map((product) => (
                             <ProductCard key={product.product_id} product={product} />
                         ))}

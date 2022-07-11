@@ -275,7 +275,7 @@ export default function AllProduct({ data }) {
                             </div>
                         </div>
 
-                        <section aria-labelledby="products-heading" className="pt-6 pb-24">
+                        <section aria-labelledby="products-heading" className="pt-3 pb-24">
                             <h2 id="products-heading" className="sr-only">
                                 Products
                             </h2>
