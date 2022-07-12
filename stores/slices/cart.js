@@ -23,7 +23,6 @@ export const cartSlice = createSlice({
                 state.cart[itemIndex].quantity++;
                 toast({ type: "success", message: "Cập nhật giỏ hàng thành công" });
             }
-            localStorage.setItem("cart", JSON.stringify(state.cart));
         },
         decreaseQuantity: (state, action) => {
             const itemIndex = state.cart.findIndex((item) => item.product_id === action.payload.product_id);
@@ -32,21 +31,18 @@ export const cartSlice = createSlice({
                 if (state.cart[itemIndex].quantity === 0) {
                     state.cart.splice(itemIndex, 1);
                 }
-                localStorage.setItem("cart", JSON.stringify(state.cart));
             }
         },
         increaseQuantity: (state, action) => {
             const itemIndex = state.cart.findIndex((item) => item.product_id === action.payload.product_id);
             if (itemIndex !== -1) {
                 state.cart[itemIndex].quantity++;
-                localStorage.setItem("cart", JSON.stringify(state.cart));
             }
         },
         removeItem: (state, action) => {
             const itemIndex = state.cart.findIndex((item) => item.product_id === action.payload.product_id);
             if (itemIndex !== -1) {
                 state.cart.splice(itemIndex, 1);
-                localStorage.setItem("cart", JSON.stringify(state.cart));
                 toast({ type: "info", message: "Sản phẩm đã được bỏ khỏi giỏ hàng" });
             }
         },

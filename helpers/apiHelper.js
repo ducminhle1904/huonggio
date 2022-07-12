@@ -33,4 +33,22 @@ function ApiProductHelper(page, size, property, direction, category) {
         );
 }
 
-export { ApiHelper, ApiProductHelper };
+function ApiLogin(payload) {
+    return fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_API}auth/sign-in`, {
+        method: "POST",
+        withCredentials: true,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+    })
+        .then((response) => response.json())
+        .then(
+            (data) => data,
+            (error) => {
+                console.log(error);
+            }
+        );
+}
+
+export { ApiHelper, ApiProductHelper, ApiLogin };
