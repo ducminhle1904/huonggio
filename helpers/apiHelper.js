@@ -51,4 +51,22 @@ function ApiLogin(payload) {
         );
 }
 
-export { ApiHelper, ApiProductHelper, ApiLogin };
+function ApiGetUser(userId, token) {
+    return fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_API}user/${userId}?active=true`, {
+        method: "GET",
+        withCredentials: true,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+        },
+    })
+        .then((response) => response.json())
+        .then(
+            (data) => data,
+            (error) => {
+                console.log(error);
+            }
+        );
+}
+
+export { ApiHelper, ApiProductHelper, ApiLogin, ApiGetUser };

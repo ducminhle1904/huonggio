@@ -6,7 +6,7 @@ export default function AvatarComponent({ user }) {
             <MenuButton
                 as={IconButton}
                 aria-label="Options"
-                icon={<Avatar name={user.name} size="sm" src={user.image} />}
+                icon={<Avatar name={user.email} size="sm" src={user.image} />}
                 variant="outline"
             />
             <MenuList>

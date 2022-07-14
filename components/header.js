@@ -132,9 +132,9 @@ export default function Header({ openCart }) {
     const [width, setWidth] = useState("");
     const { isOpen, onOpen, onClose } = useDisclosure();
     const cart = useSelector((state) => state.cart);
+    const user = useSelector((state) => state.user);
     const router = useRouter();
     const { data: session } = useSession();
-
     function handleWindowSizeChange() {
         setWidth(window.innerWidth);
     }
@@ -152,7 +152,7 @@ export default function Header({ openCart }) {
 
     useEffect(() => {
         onClose();
-    }, [router.asPath]);
+    }, [onClose, router.asPath]);
 
     const isMobile = width <= 768;
 
@@ -469,7 +469,7 @@ export default function Header({ openCart }) {
 
                                 <div className="ml-auto flex items-center">
                                     <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                        {session ? (
+                                        {session || user.current ? (
                                             <a
                                                 className="-m-2 p-2 block font-medium text-gray-900 cursor-pointer"
                                                 onClick={() => signOut()}
@@ -516,9 +516,17 @@ export default function Header({ openCart }) {
                                         </span>
                                     </div>
 
-                                    {session ? (
+                                    {session || user.current ? (
                                         <div className="ml-4 lg:ml-6">
-                                            <AvatarComponent user={session.user} />
+                                            <AvatarComponent
+                                                user={
+                                                    session
+                                                        ? session.user
+                                                        : user.current
+                                                        ? user.current.user_detail
+                                                        : null
+                                                }
+                                            />
                                         </div>
                                     ) : null}
                                 </div>

@@ -3,9 +3,10 @@ import { getProviders, getSession, signIn } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import React from "react";
 import { BiShow, BiHide } from "react-icons/bi";
-import { signInApi } from "../stores/slices/user";
+import { signInApi, getMe } from "../stores/slices/user";
 import { useDispatch } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
+import toast from "../components/Common/Toast";
 
 export default function Login({ providers }) {
     const dispatch = useDispatch();
@@ -17,16 +18,19 @@ export default function Login({ providers }) {
     const handleChangeEmail = (event) => setEmail(event.target.value);
     const handleChangePassword = (event) => setPassword(event.target.value);
 
-    function handleLogin() {
+    async function handleLogin() {
         try {
             const payload = {
                 username: email,
                 password: password,
             };
-            const signInResult = dispatch(signInApi(payload));
+            const signInResult = await dispatch(signInApi(payload));
             unwrapResult(signInResult); // MUST HAVE THIS LINE TO CATCH ERROR
+
+            const getMeResult = await dispatch(getMe());
+            unwrapResult(getMeResult); // MUST HAVE THIS LINE TO CATCH ERROR
         } catch (error) {
-            console.log("Failed to sign in : ", error);
+            toast({ type: "error", message: "Có lỗi xảy ra" });
         }
     }
     return (
