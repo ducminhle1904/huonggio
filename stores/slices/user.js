@@ -24,7 +24,7 @@ export const signInApi = createAsyncThunk("user/signIn", async (params, thunkAPI
 export const getMe = createAsyncThunk("user/getMe", async (params) => {
     const userId = window.localStorage.getItem("userID");
     const token = window.localStorage.getItem("access_token");
-    if (userId) {
+    if (userId && token) {
         return ApiGetUser(userId, token);
     }
 });

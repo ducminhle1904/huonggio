@@ -9,6 +9,11 @@ import Search from "./Search";
 import { useRouter } from "next/router";
 import { useSession, signOut } from "next-auth/react";
 import AvatarComponent from "./Avatar";
+import { useDispatch } from "react-redux";
+import toast from "./Common/Toast";
+import { getMe } from "../stores/slices/user";
+import { unwrapResult } from "@reduxjs/toolkit";
+
 const ModalPopup = dynamic(() => import("./Common/Modal"));
 
 const navigation = {
@@ -134,6 +139,7 @@ export default function Header({ openCart }) {
     const cart = useSelector((state) => state.cart);
     const user = useSelector((state) => state.user);
     const router = useRouter();
+    const dispatch = useDispatch();
     const { data: session } = useSession();
     function handleWindowSizeChange() {
         setWidth(window.innerWidth);
@@ -149,6 +155,15 @@ export default function Header({ openCart }) {
             window.removeEventListener("resize", handleWindowSizeChange);
         };
     }, []);
+
+    useEffect(() => {
+        try {
+            const getMeResult = dispatch(getMe());
+            unwrapResult(getMeResult); // MUST HAVE THIS LINE TO CATCH ERROR
+        } catch (error) {
+            toast({ type: "error", message: "Có lỗi xảy ra" });
+        }
+    }, [dispatch]);
 
     useEffect(() => {
         onClose();
@@ -289,7 +304,7 @@ export default function Header({ openCart }) {
 
                                     <div className="border-t border-gray-200 py-6 px-4 space-y-6">
                                         <div className="flow-root">
-                                            {session ? (
+                                            {session || user.current.user_detail ? (
                                                 <a
                                                     className="-m-2 p-2 block font-medium text-gray-900"
                                                     onClick={() => signOut()}
@@ -469,7 +484,7 @@ export default function Header({ openCart }) {
 
                                 <div className="ml-auto flex items-center">
                                     <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                        {session || user.current ? (
+                                        {session || user.current.user_detail ? (
                                             <a
                                                 className="-m-2 p-2 block font-medium text-gray-900 cursor-pointer"
                                                 onClick={() => signOut()}
@@ -516,7 +531,7 @@ export default function Header({ openCart }) {
                                         </span>
                                     </div>
 
-                                    {session || user.current ? (
+                                    {session || user.current.user_detail ? (
                                         <div className="ml-4 lg:ml-6">
                                             <AvatarComponent
                                                 user={
