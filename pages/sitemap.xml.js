@@ -1,4 +1,5 @@
 const EXTERNAL_DATA_URL = "https://ken-shop.herokuapp.com/api/v1/product/all";
+const PRODUCT_URL = "https://ken-shop.herokuapp.com/api/v1/product";
 
 function generateSiteMap(products) {
     return `<?xml version="1.0" encoding="UTF-8"?>
@@ -14,7 +15,7 @@ function generateSiteMap(products) {
          .map(({ product_id }) => {
              return `
        <url>
-           <loc>${`${EXTERNAL_DATA_URL}/${product_id}`}</loc>
+           <loc>${`${PRODUCT_URL}/${product_id}`}</loc>
        </url>
      `;
          })

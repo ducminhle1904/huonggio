@@ -19,7 +19,7 @@ export default function ProductCard({ product }) {
         ssr: false,
     });
     const dispatch = useDispatch();
-    const handleAddToCart = (product) => {
+    const handleAddToCart = () => {
         dispatch(addToCart(product));
     };
 
@@ -57,7 +57,7 @@ export default function ProductCard({ product }) {
                     <span className="text-xs font-bold text-gray-900">Giá: {generateCurrency(product.price)}</span>
                     {isMobile ? (
                         <div>
-                            <Button onClick={() => handleAddToCart(product)}>
+                            <Button onClick={() => handleAddToCart()}>
                                 <BsCartPlus />
                             </Button>
                         </div>

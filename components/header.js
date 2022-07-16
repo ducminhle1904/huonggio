@@ -12,7 +12,9 @@ import AvatarComponent from "./Avatar";
 import { useDispatch } from "react-redux";
 import toast from "./Common/Toast";
 import { getMe } from "../stores/slices/user";
+import { getCart } from "../stores/slices/cart";
 import { unwrapResult } from "@reduxjs/toolkit";
+import Router from "next/router";
 
 const ModalPopup = dynamic(() => import("./Common/Modal"));
 
@@ -141,8 +143,19 @@ export default function Header({ openCart }) {
     const router = useRouter();
     const dispatch = useDispatch();
     const { data: session } = useSession();
+    const isMobile = width <= 768;
+
     function handleWindowSizeChange() {
         setWidth(window.innerWidth);
+    }
+
+    function handleSignOut() {
+        if (user.current.user_detail) {
+            localStorage.removeItem("access_token");
+            Router.reload(window.location.pathname);
+        } else {
+            return signOut();
+        }
     }
 
     useEffect(() => {
@@ -166,10 +179,17 @@ export default function Header({ openCart }) {
     }, [dispatch]);
 
     useEffect(() => {
+        try {
+            const getCartResult = dispatch(getCart());
+            unwrapResult(getCartResult); // MUST HAVE THIS LINE TO CATCH ERROR
+        } catch (error) {
+            toast({ type: "error", message: "Có lỗi xảy ra" });
+        }
+    }, [dispatch]);
+
+    useEffect(() => {
         onClose();
     }, [onClose, router.asPath]);
-
-    const isMobile = width <= 768;
 
     return (
         <>
@@ -307,7 +327,7 @@ export default function Header({ openCart }) {
                                             {session || user.current.user_detail ? (
                                                 <a
                                                     className="-m-2 p-2 block font-medium text-gray-900"
-                                                    onClick={() => signOut()}
+                                                    onClick={() => handleSignOut()}
                                                 >
                                                     Đăng xuất
                                                 </a>
@@ -487,7 +507,7 @@ export default function Header({ openCart }) {
                                         {session || user.current.user_detail ? (
                                             <a
                                                 className="-m-2 p-2 block font-medium text-gray-900 cursor-pointer"
-                                                onClick={() => signOut()}
+                                                onClick={() => handleSignOut()}
                                             >
                                                 Đăng xuất
                                             </a>

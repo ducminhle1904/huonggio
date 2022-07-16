@@ -15,17 +15,15 @@ export const signInApi = createAsyncThunk("user/signIn", async (params, thunkAPI
         const { access_token, token_type, user } = response;
         const accessToken = `${token_type} ${access_token}`;
         window.localStorage.setItem("access_token", accessToken);
-        window.localStorage.setItem("userID", user.user_id);
         toast({ type: response.response_status, message: response.response_message });
         Router.push("/");
     }
 });
 
 export const getMe = createAsyncThunk("user/getMe", async (params) => {
-    const userId = window.localStorage.getItem("userID");
     const token = window.localStorage.getItem("access_token");
-    if (userId && token) {
-        return ApiGetUser(userId, token);
+    if (token) {
+        return ApiGetUser(token);
     }
 });
 
