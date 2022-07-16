@@ -14,7 +14,7 @@ export default function Layout({ children }) {
 
     useEffect(() => {
         onClose();
-    }, [router.asPath]);
+    }, [router.asPath, onClose]);
 
     return (
         <>

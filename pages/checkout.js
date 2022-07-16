@@ -18,10 +18,10 @@ export default function Index() {
     }, [cart, dispatch]);
 
     const initialValues = {
-        firstName: user.current.user_detail.last_name || "",
-        lastName: user.current.user_detail.first_name || "",
-        address: user.current.user_detail.address || "",
-        phone: user.current.user_detail.phoneNo || "",
+        firstName: user.current?.user_detail?.last_name || "",
+        lastName: user.current?.user_detail?.first_name || "",
+        address: user.current?.user_detail?.address || "",
+        phone: user.current?.user_detail?.phoneNo || "",
     };
     const phoneRegExp =
         /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
