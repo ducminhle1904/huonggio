@@ -1,17 +1,29 @@
 import { Alert, AlertDescription, AlertIcon, AlertTitle } from "@chakra-ui/react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeItem, getTotals } from "../stores/slices/cart";
+import { decreaseQuantity, increaseQuantity, removeItem, getTotals } from "../stores/slices/cart";
 import Link from "next/link";
 import Router from "next/router";
+import { PlusSmIcon, MinusSmIcon } from "@heroicons/react/outline";
+import { IconButton } from "@chakra-ui/react";
 
 export default function CartSlideOver() {
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getTotals());
     }, [cart, dispatch]);
+
+    const increaseAmount = (item) => {
+        dispatch(increaseQuantity(item));
+    };
+
+    const decreaseAmount = (item) => {
+        dispatch(decreaseQuantity(item));
+    };
+
     const removeProduct = (item) => {
         dispatch(removeItem(item));
     };
@@ -54,10 +66,31 @@ export default function CartSlideOver() {
                                                             })}
                                                         </p>
                                                     </div>
-                                                    {/* <p className="mt-1 text-sm text-gray-500">{product.color}</p> */}
+                                                    <div className="flex my-2">
+                                                        <IconButton
+                                                            aria-label="minus"
+                                                            icon={<MinusSmIcon />}
+                                                            size="xs"
+                                                            onClick={() => decreaseAmount(product)}
+                                                        />
+                                                        <span
+                                                            className="w-8 flex items-center justify-center"
+                                                            type="text"
+                                                        >
+                                                            {product.quantity}
+                                                        </span>
+                                                        <IconButton
+                                                            aria-label="plus"
+                                                            icon={<PlusSmIcon />}
+                                                            size="xs"
+                                                            onClick={() => increaseAmount(product)}
+                                                        />
+                                                    </div>
                                                 </div>
                                                 <div className="flex flex-1 items-end justify-between text-sm">
-                                                    <p className="text-gray-500">Số lượng: {product.quantity}</p>
+                                                    <p className="text-gray-500 font-bold">
+                                                        Số lượng: {product.quantity}
+                                                    </p>
 
                                                     <div className="flex">
                                                         <button
@@ -89,7 +122,7 @@ export default function CartSlideOver() {
                         </div>
                         <p className="mt-0.5 text-sm text-gray-500">Tiền ship sẽ tính ở trang thanh toán.</p>
                         <div className="mt-6">
-                            <Link href="/cart" passHref>
+                            <Link href="/checkout" passHref>
                                 <a className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
                                     Đến tranh thanh toán
                                 </a>

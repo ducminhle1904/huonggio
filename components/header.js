@@ -539,7 +539,7 @@ export default function Header({ openCart }) {
 
                                     {/* Cart */}
                                     <div className="ml-4 flow-root lg:ml-6" onClick={openCart}>
-                                        <span className="group -m-2 p-2 flex items-center">
+                                        <span className="group -m-2 p-2 flex items-center cursor-pointer">
                                             <ShoppingBagIcon
                                                 className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                                                 aria-hidden="true"
