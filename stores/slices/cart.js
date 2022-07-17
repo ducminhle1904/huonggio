@@ -106,7 +106,7 @@ export const cartSlice = createSlice({
     },
     extraReducers: {
         [getCart.fulfilled]: (state, action) => {
-            state.cart = action.payload.cart || [];
+            state.cart = action.payload?.cart || [];
         },
         [getCart.rejected]: (state, action) => {
             state.cart = [];

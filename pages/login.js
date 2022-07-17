@@ -1,18 +1,23 @@
 import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { getProviders, getSession, signIn } from "next-auth/react";
 import { NextSeo } from "next-seo";
-import React from "react";
+import React, { useEffect } from "react";
 import { BiShow, BiHide } from "react-icons/bi";
 import { signInApi, getMe } from "../stores/slices/user";
-import { useDispatch } from "react-redux";
+import { getCart } from "../stores/slices/cart";
+import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
 import toast from "../components/Common/Toast";
+import { useRouter } from "next/router";
 
 export default function Login({ providers }) {
+    const router = useRouter();
     const dispatch = useDispatch();
     const [show, setShow] = React.useState(false);
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const user = useSelector((state) => state.user);
+    const accessToken = typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
 
     const handleClick = () => setShow(!show);
     const handleChangeEmail = (event) => setEmail(event.target.value);
@@ -29,6 +34,9 @@ export default function Login({ providers }) {
 
             const getMeResult = await dispatch(getMe());
             unwrapResult(getMeResult); // MUST HAVE THIS LINE TO CATCH ERROR
+
+            const getCartResult = await dispatch(getCart());
+            unwrapResult(getCartResult); // MUST HAVE THIS LINE TO CATCH ERROR
         } catch (error) {
             toast({ type: "error", message: "Có lỗi xảy ra" });
         }
