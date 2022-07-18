@@ -58,7 +58,6 @@ export default function Login({ providers }) {
                     <div className="bg-white shadow rounded lg:w-1/3  md:w-1/2 w-full p-10 mt-16">
                         <p
                             tabIndex={0}
-                            role="heading"
                             aria-label="Login to your account"
                             className="text-2xl font-extrabold leading-6 text-gray-800"
                         >
