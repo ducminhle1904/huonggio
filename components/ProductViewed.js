@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
 import ProductGrid from "./ProductGrid";
 
-export default function ProductViewed() {
-    const [products, setProducts] = useState([]);
-    useEffect(() => {
-        const productViewed = localStorage.getItem("productViewed");
-        const uniqueProduct = new Set(productViewed);
-        setProducts(uniqueProduct);
-        console.log(products);
-    }, []);
+export default function ProductViewed({ data }) {
     return (
-        <div>
-            <p>SẢN PHẨM XEM GẦN ĐÂY</p>
-            <ProductGrid products={products} />
+        <div className="mt-20">
+            <p className="text-center text-2xl font-bold">SẢN PHẨM XEM GẦN ĐÂY</p>
+            <ProductGrid products={data} />
         </div>
     );
 }

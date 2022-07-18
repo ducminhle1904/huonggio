@@ -11,9 +11,12 @@ import Rating from "react-rating";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { ProductJsonLd } from "next-seo";
 import ProductViewed from "../../components/ProductViewed";
+import { ApiAddRecently, ApiGetRecently } from "../../helpers/apiHelper";
+import { useRouter } from "next/router";
 
 export default function DetailProduct({ productDetail }) {
     const dispatch = useDispatch();
+    const router = useRouter();
     const handleAddToCart = (product, event) => {
         event.preventDefault();
         dispatch(addToCart(product));
@@ -32,20 +35,19 @@ export default function DetailProduct({ productDetail }) {
     const getColor = (value) => {
         setColor(value);
     };
+    const [productViewed, setProductViewed] = useState([]);
 
     useEffect(() => {
-        let productViewedLocal = JSON.parse(localStorage.getItem("productViewed")) || [];
-        if (productViewedLocal.length > 0) {
-            productViewedLocal.forEach((item) => {
-                if (item.product_id !== productDetail.product_id) {
-                    productViewedLocal.push(productDetail);
-                }
-            });
-        } else {
-            productViewedLocal.push(productDetail);
-        }
-        localStorage.setItem("productViewed", JSON.stringify(productViewedLocal));
-    }, [productDetail]);
+        const token = localStorage.getItem("access_token");
+        router.events.on("routeChangeComplete", async () => await ApiAddRecently(productDetail.product_id, token));
+    }, [productDetail.product_id, router.events]);
+
+    useEffect(() => {
+        const token = localStorage.getItem("access_token");
+        ApiGetRecently(token).then((response) => {
+            setProductViewed(response.recently_view);
+        });
+    }, []);
 
     return (
         <>
@@ -234,7 +236,7 @@ export default function DetailProduct({ productDetail }) {
                             </form>
                         </div>
                     </div>
-                    {/* <ProductViewed /> */}
+                    {productViewed ? <ProductViewed data={productViewed} /> : null}
                 </div>
             </div>
         </>

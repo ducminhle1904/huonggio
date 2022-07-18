@@ -106,4 +106,40 @@ function ApiHandleCart(isUpdate, token, data) {
         );
 }
 
-export { ApiHelper, ApiProductHelper, ApiLogin, ApiGetUser, ApiGetCart, ApiHandleCart };
+function ApiAddRecently(productId, token) {
+    return fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_API}product/recently/${productId}`, {
+        method: "POST",
+        withCredentials: true,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+        },
+    })
+        .then((response) => response.json())
+        .then(
+            (data) => data,
+            (error) => {
+                console.log(error);
+            }
+        );
+}
+
+function ApiGetRecently(token) {
+    return fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_API}product/recently`, {
+        method: "GET",
+        withCredentials: true,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+        },
+    })
+        .then((response) => response.json())
+        .then(
+            (data) => data,
+            (error) => {
+                console.log(error);
+            }
+        );
+}
+
+export { ApiHelper, ApiProductHelper, ApiLogin, ApiGetUser, ApiGetCart, ApiHandleCart, ApiAddRecently, ApiGetRecently };
