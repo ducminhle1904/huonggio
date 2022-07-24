@@ -142,4 +142,57 @@ function ApiGetRecently(token) {
         );
 }
 
-export { ApiHelper, ApiProductHelper, ApiLogin, ApiGetUser, ApiGetCart, ApiHandleCart, ApiAddRecently, ApiGetRecently };
+function ApiMakeOrder(username, address, phone, productList, token) {
+    return fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_API}order`, {
+        method: "POST",
+        withCredentials: true,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+        },
+        body: JSON.stringify({
+            username: username,
+            address: address,
+            phone: phone,
+            product_list: productList,
+        }),
+    })
+        .then((response) => response.json())
+        .then(
+            (data) => data,
+            (error) => {
+                console.log(error);
+            }
+        );
+}
+
+function ApiGetOrder(token) {
+    return fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_API}order/all-order`, {
+        method: "GET",
+        withCredentials: true,
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+        },
+    })
+        .then((response) => response.json())
+        .then(
+            (data) => data,
+            (error) => {
+                console.log(error);
+            }
+        );
+}
+
+export {
+    ApiHelper,
+    ApiProductHelper,
+    ApiLogin,
+    ApiGetUser,
+    ApiGetCart,
+    ApiHandleCart,
+    ApiAddRecently,
+    ApiGetRecently,
+    ApiMakeOrder,
+    ApiGetOrder,
+};

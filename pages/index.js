@@ -8,9 +8,15 @@ import { ApiHelper } from "../helpers";
 
 const Heros = dynamic(() => import("../components/Heros"));
 const ProductFilter = dynamic(() => import("../components/ProductFilter"));
-const CardSexType = dynamic(() => import("../components/CardSexType"));
-const Highlights = dynamic(() => import("../components/Highlights"));
-const Partners = dynamic(() => import("../components/Partners"));
+const CardSexType = dynamic(() => import("../components/CardSexType"), {
+    ssr: false,
+});
+const Highlights = dynamic(() => import("../components/Highlights"), {
+    ssr: false,
+});
+const Partners = dynamic(() => import("../components/Partners"), {
+    ssr: false,
+});
 
 const IMAGE_BANNER = [
     "https://res.cloudinary.com/kenvo/image/upload/v1653574224/banner/slideshow_4_qglaxq.webp",
@@ -21,13 +27,13 @@ export default function Home({ data }) {
     return (
         <>
             <NextSeo
-                title="Ken Shopping"
-                description="Cửa hàng Ken chuyên các mặt hàng thời trang như quần áo, giày dép, phụ kiện trang sức, ..."
+                title="Cửa hàng Hương Gió"
+                description="Cửa hàng Hương Gió chuyên các mặt hàng thời trang như quần áo, giày dép, phụ kiện trang sức, ..."
                 openGraph={{
-                    url: "https://ken-shop.vercel.app/",
-                    title: "Ken Shopping",
+                    url: "https://huonggio.vercel.app/",
+                    title: "Cửa hàng Hương Gió",
                     description:
-                        "Cửa hàng Ken chuyên các mặt hàng thời trang như quần áo, giày dép, phụ kiện trang sức, ...",
+                        "Cửa hàng Hương Gió chuyên các mặt hàng thời trang như quần áo, giày dép, phụ kiện trang sức, ...",
                 }}
             />
             <section className="h-[20vh] md:h-[75vh]">

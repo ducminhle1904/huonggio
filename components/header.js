@@ -16,7 +16,9 @@ import { getCart } from "../stores/slices/cart";
 import { unwrapResult } from "@reduxjs/toolkit";
 import Router from "next/router";
 
-const ModalPopup = dynamic(() => import("./Common/Modal"));
+const ModalPopup = dynamic(() => import("./Common/Modal"), {
+    ssr: false,
+});
 
 const navigation = {
     categories: [

@@ -1,6 +1,26 @@
-import { Avatar, IconButton, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import {
+    Avatar,
+    IconButton,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    useDisclosure,
+    useMediaQuery,
+} from "@chakra-ui/react";
+import dynamic from "next/dynamic";
+import Table from "./Common/Table";
+
+const ModalPopup = dynamic(() => import("./Common/Modal"), {
+    ssr: false,
+});
 
 export default function AvatarComponent({ user }) {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [isMobile] = useMediaQuery("(max-width: 768px)", {
+        ssr: false,
+    });
+
     return (
         <>
             <Menu>
@@ -11,8 +31,15 @@ export default function AvatarComponent({ user }) {
                     variant="outline"
                 />
                 <MenuList>
-                    <MenuItem>Lịch sử đặt hàng</MenuItem>
+                    <MenuItem onClick={onOpen}>Lịch sử đặt hàng</MenuItem>
                 </MenuList>
+                <ModalPopup
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    modalTitle="Lịch sử đặt hàng"
+                    childContent={<Table />}
+                    size={isMobile ? "full" : "4xl"}
+                />
             </Menu>
         </>
     );

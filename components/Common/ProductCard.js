@@ -10,7 +10,9 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../stores/slices/cart";
 
-const ModalPopup = dynamic(() => import("./Modal"));
+const ModalPopup = dynamic(() => import("./Modal"), {
+    ssr: false,
+});
 const ProductQuickView = dynamic(() => import("../ProductQuickView"));
 
 export default function ProductCard({ product }) {

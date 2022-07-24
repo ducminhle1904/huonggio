@@ -8,7 +8,7 @@ const Ordersummary = () => {
                 title="Order Summary"
                 description="Cửa hàng Ken chuyên các mặt hàng thời trang như quần áo, giày dép, phụ kiện trang sức, ..."
                 openGraph={{
-                    url: "https://ken-shop.vercel.app/",
+                    url: "https://huonggio.vercel.app/",
                     title: "Ken Shopping",
                     description:
                         "Cửa hàng Ken chuyên các mặt hàng thời trang như quần áo, giày dép, phụ kiện trang sức, ...",

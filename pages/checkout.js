@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { getTotals } from "../stores/slices/cart";
 import { generateCurrency } from "../helpers/moneyHelper";
+import { ApiMakeOrder } from "../helpers/apiHelper";
 
 export default function Index() {
     const dispatch = useDispatch();
@@ -34,7 +35,16 @@ export default function Index() {
         phone: Yup.string().matches(phoneRegExp, "Số điện thoại không hợp lệ").required("Số điện thoại là bắt buộc"),
     });
 
-    const onSubmit = (values, actions) => {
+    const onSubmit = async (values, actions) => {
+        const name = `${values.firstName} ${values.lastName}`;
+        const address = values.address;
+        const phone = values.phone;
+        const productList = cart.cart.map((product) => ({
+            product_id: product.product_id,
+            quantity: product.quantity,
+        }));
+        const token = localStorage.getItem("access_token");
+        await ApiMakeOrder(name, address, phone, productList, token);
         setTimeout(() => {
             actions.setSubmitting(false);
         }, 1000);
@@ -46,7 +56,7 @@ export default function Index() {
                 title="Thanh toán"
                 description="Cửa hàng Ken chuyên các mặt hàng thời trang như quần áo, giày dép, phụ kiện trang sức, ..."
                 openGraph={{
-                    url: "https://ken-shop.vercel.app/",
+                    url: "https://huonggio.vercel.app/",
                     title: "Ken Shopping",
                     description:
                         "Cửa hàng Ken chuyên các mặt hàng thời trang như quần áo, giày dép, phụ kiện trang sức, ...",

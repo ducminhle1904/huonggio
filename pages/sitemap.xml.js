@@ -6,10 +6,10 @@ function generateSiteMap(products) {
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      <!--We manually set the two URLs we know already-->
      <url>
-       <loc>https://ken-shop.vercel.app/</loc>
+       <loc>https://huonggio.vercel.app/</loc>
      </url>
      <url>
-       <loc>https://ken-shop.vercel.app/</loc>
+       <loc>https://huonggio.vercel.app/</loc>
      </url>
      ${products.product_list
          .map(({ product_id }) => {

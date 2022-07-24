@@ -20,10 +20,10 @@ export default function ProductFilter({ data }) {
         fetchCategory();
     }, []);
 
-    async function changeTab(id) {
+    async function changeTab(name) {
         dispatch(setLoading(true));
-        if (id) {
-            await ApiProductHelper(0, 8, "price", "DESC", id).then((results) => {
+        if (name) {
+            await ApiProductHelper(0, 8, "price", "DESC", name).then((results) => {
                 setDataProduct(results.product_list);
             });
         } else {
@@ -39,7 +39,7 @@ export default function ProductFilter({ data }) {
             <TabList className="flex-wrap">
                 <Tab onClick={() => changeTab(null)}>Tất cả sản phẩm</Tab>
                 {category.map((item, index) => (
-                    <Tab key={index} onClick={() => changeTab(item.category_id)}>
+                    <Tab key={index} onClick={() => changeTab(item.category_name)}>
                         {item.category_name}
                     </Tab>
                 ))}

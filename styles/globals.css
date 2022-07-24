@@ -8,3 +8,23 @@
     -webkit-box-orient: vertical;  
     overflow: hidden;
 }
+
+.swiper-button-next, .swiper-button-prev {
+    width: 40px !important;
+    height: 40px !important;
+    top: 95% !important;
+    border: 1px solid gray;
+    border-radius: 50%;
+    background-color: gray;
+}
+
+.swiper-button-next::after, .swiper-button-prev::after {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    color: white;
+}
+
+.swiper-button-prev {
+    left: auto !important;
+    right: 60px !important;
+}
