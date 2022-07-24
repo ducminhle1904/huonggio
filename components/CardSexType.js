@@ -30,7 +30,7 @@ export default function CardSexType() {
                             </div>
                             <div className="mt-6">
                                 <div className="flex justify-between items-center space-x-2">
-                                    <Link href="/" passHref>
+                                    <Link href="/danh-muc/Nam" passHref>
                                         <a className="text-base font-medium leading-none hover:underline text-gray-800">
                                             Khám Phá
                                         </a>
@@ -61,7 +61,7 @@ export default function CardSexType() {
                             </div>
                             <div className="mt-6">
                                 <div className="flex justify-between items-center space-x-2">
-                                    <Link href="/" passHref>
+                                    <Link href="/danh-muc/Nữ" passHref>
                                         <a className="text-base font-medium leading-none hover:underline text-gray-800">
                                             Khám Phá
                                         </a>
@@ -89,7 +89,7 @@ export default function CardSexType() {
                             </div>
                             <div className="mt-6">
                                 <div className="flex justify-between items-center space-x-2">
-                                    <Link href="/" passHref>
+                                    <Link href="/danh-muc/Phụ kiện" passHref>
                                         <a className="text-base font-medium leading-none hover:underline text-gray-800">
                                             Khám Phá
                                         </a>

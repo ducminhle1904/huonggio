@@ -5,13 +5,13 @@ import ReactHtmlParser from "react-html-parser";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import { useDispatch } from "react-redux";
-import { generateCurrency } from "../../helpers";
-import { addToCart } from "../../stores/slices/cart";
+import { generateCurrency } from "../../../helpers";
+import { addToCart } from "../../../stores/slices/cart";
 import Rating from "react-rating";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { ProductJsonLd } from "next-seo";
-import ProductViewed from "../../components/ProductViewed";
-import { ApiAddRecently, ApiGetRecently } from "../../helpers/apiHelper";
+import ProductViewed from "../../../components/ProductViewed";
+import { ApiAddRecently, ApiGetRecently } from "../../../helpers/apiHelper";
 import { useRouter } from "next/router";
 
 export default function DetailProduct({ productDetail }) {

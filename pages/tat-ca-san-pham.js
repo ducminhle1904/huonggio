@@ -95,7 +95,7 @@ export default function AllProduct({ data }) {
     };
     return (
         <>
-            <NextSeo title="All Products" />
+            <NextSeo title="Tất cả sản phẩm" />
             <div className="bg-white">
                 <div>
                     {/* Mobile filter dialog */}
@@ -237,7 +237,7 @@ export default function AllProduct({ data }) {
                                             />
                                         }
                                     >
-                                        Sort
+                                        Sắp xếp
                                     </MenuButton>
                                     <MenuList>
                                         <MenuOptionGroup
@@ -283,7 +283,7 @@ export default function AllProduct({ data }) {
                             <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
                                 {/* Filters */}
                                 <form className="hidden lg:block">
-                                    <h3 className="sr-only">Categories</h3>
+                                    <h3 className="sr-only">Danh mục</h3>
                                     <CheckboxGroup
                                         colorScheme="green"
                                         defaultValue={["All"]}

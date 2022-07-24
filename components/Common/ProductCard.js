@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { Button, Text, Tooltip, useDisclosure, useMediaQuery } from "@chakra-ui/react";
 import Link from "next/link";
-import { generateCurrency } from "../../helpers";
+import { generateCurrency, convertToSlug } from "../../helpers";
 import Rating from "react-rating";
 import { BsStar, BsStarFill, BsCartPlus } from "react-icons/bs";
 import { VscEye } from "react-icons/vsc";
@@ -37,7 +37,7 @@ export default function ProductCard({ product }) {
                 objectFit="contain"
             />
             <div className="px-3 pb-3 mt-2">
-                <Link href={`/product/${product.product_id}`} passHref>
+                <Link href={`/san-pham/${convertToSlug(product.product_name)}/${product.product_id}`} passHref>
                     <a>
                         <Text noOfLines={1} className="text-sm font-semibold tracking-tight text-gray-900">
                             {product.product_name}

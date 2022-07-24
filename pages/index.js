@@ -54,7 +54,7 @@ export default function Home({ data }) {
                     <Heading className="pb-4">SẢN PHẨM BÁN CHẠY</Heading>
                     <ProductFilter data={data} />
                     <Center>
-                        <Link href="/products">
+                        <Link href="/tat-ca-san-pham">
                             <Button className="mt-4 mx-auto block" colorScheme="teal" size="lg">
                                 Xem thêm
                             </Button>

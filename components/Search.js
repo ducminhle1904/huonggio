@@ -70,7 +70,7 @@ export default function Search() {
                             </div>
                             <div>
                                 <p className="mt-3 text-lg font-medium leading-6">
-                                    <Link href={`/product/${product.product_id}`} passHref>
+                                    <Link href={`/san-pham/${product.product_id}`} passHref>
                                         <a className="text-lg text-gray-800 group-hover:text-gray-500 lg:text-xl">
                                             {product.product_name}
                                         </a>
