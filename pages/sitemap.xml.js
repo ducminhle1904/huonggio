@@ -1,5 +1,5 @@
-const EXTERNAL_DATA_URL = "https://ken-shop.herokuapp.com/api/v1/product/all";
-const PRODUCT_URL = "https://ken-shop.herokuapp.com/api/v1/product";
+const EXTERNAL_DATA_URL = "https://ken-shop-api.herokuapp.com/api/v1/product/all";
+const PRODUCT_URL = "https://ken-shop-api.herokuapp.com/api/v1/product";
 
 function generateSiteMap(products) {
     return `<?xml version="1.0" encoding="UTF-8"?>

@@ -244,7 +244,7 @@ export default function DetailProduct({ productDetail }) {
 }
 
 export async function getServerSideProps({ params: { id } }) {
-    const baseUrl = "http://ken-shop.herokuapp.com/api/v1/";
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_PATH_API;
     const url = baseUrl + "product/" + id;
     const product = await fetch(url).then((results) => results.json());
     return {
