@@ -1,31 +1,11 @@
-import {
-    Button,
-    Checkbox,
-    CheckboxGroup,
-    IconButton,
-    Menu,
-    MenuButton,
-    MenuItemOption,
-    MenuList,
-    MenuOptionGroup,
-    Stack,
-} from "@chakra-ui/react";
-import { Dialog, Disclosure, Transition } from "@headlessui/react";
-import { XIcon } from "@heroicons/react/outline";
-import {
-    ChevronDownIcon,
-    FilterIcon,
-    MinusSmIcon,
-    PlusSmIcon,
-    ViewGridIcon,
-    ViewListIcon,
-} from "@heroicons/react/solid";
+import { Button, IconButton, Menu, MenuButton, MenuItemOption, MenuList, MenuOptionGroup } from "@chakra-ui/react";
+import { ChevronDownIcon, FilterIcon, ViewGridIcon, ViewListIcon } from "@heroicons/react/solid";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import ProductList from "../../components/ProductList";
-import { ApiHelper, ApiProductHelper } from "../../helpers/apiHelper";
+import { ApiProductHelper } from "../../helpers/apiHelper";
 import { setLoading } from "../../stores/slices/loading";
 
 const ProductGrid = dynamic(() => import("../../components/ProductGrid"));
@@ -38,20 +18,23 @@ export default function AllProduct({ data, categoryName }) {
     const sortProduct = async (sortBy) => {
         let data = [];
         dispatch(setLoading(true));
-        if (sortBy === "lowtohigh") {
-            data = await ApiProductHelper(0, 100, "price", "ASC").then((response) => response);
-        }
-        if (sortBy === "hightolow") {
-            data = await ApiProductHelper(0, 100, "price", "DESC").then((response) => response);
-        }
-        if (sortBy === "created") {
-            data = await ApiProductHelper(0, 100, "created_at", "DESC").then((response) => response);
-        }
-        if (sortBy === "rating") {
-            data = await ApiProductHelper(0, 100, "product_review_point", "DESC").then((response) => response);
-        }
-        if (sortBy === "sold_quantity") {
-            data = await ApiProductHelper(0, 100, "sold_quantity", "DESC").then((response) => response);
+        switch (sortBy) {
+            case "lowtohigh":
+                data = await ApiProductHelper(0, 100, "price", "ASC").then((response) => response);
+                break;
+            case "hightolow":
+                data = await ApiProductHelper(0, 100, "price", "DESC").then((response) => response);
+                break;
+            case "created":
+                data = await ApiProductHelper(0, 100, "created_at", "DESC").then((response) => response);
+                break;
+            case "rating":
+                data = await ApiProductHelper(0, 100, "product_review_point", "DESC").then((response) => response);
+                break;
+            case "sold_quantity":
+                data = await ApiProductHelper(0, 100, "sold_quantity", "DESC").then((response) => response);
+            default:
+                break;
         }
         dispatch(setLoading(false));
         setProducts(data.product_list);
